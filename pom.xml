@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.alejandromg</groupId>
-	<artifactId>tarea3dwes24</artifactId>
+	<artifactId>tarea3dwes24alejandromg</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>tarea3dwes24</name>
+	<name>tarea3dwes24alejandromg</name>
 	<description>Tarea 3 DWES</description>
 	<url/>
 	<licenses>
