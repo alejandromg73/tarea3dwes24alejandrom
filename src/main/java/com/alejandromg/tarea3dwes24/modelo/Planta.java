@@ -44,13 +44,10 @@ public class Planta implements Serializable{
 		
 	}
 	
-	public Planta(Long id, String codigo, String nombreComun, String nombreCientifico, List<Ejemplar> ejemplares) {
-		super();
-		this.id = id;
+	public Planta(String codigo, String nombreComun, String nombreCientifico) {
 		this.codigo = codigo;
 		this.nombreComun = nombreComun;
 		this.nombreCientifico = nombreCientifico;
-		this.ejemplares = ejemplares;
 	}
 	
 	public Long getId() {

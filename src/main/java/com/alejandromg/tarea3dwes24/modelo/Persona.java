@@ -11,107 +11,85 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "ejemplares")
-public class Ejemplar implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+@Table(name="personas")
+public class Persona implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable=false)
+	@Column(nullable= false)
 	private String nombre;
 	
-	@ManyToOne
-	@JoinColumn(name="idplanta")
-	private Planta planta;
+	@Column(unique=true, nullable = false)
+	private String email;
 	
-	@OneToMany(mappedBy = "ejemplar", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy= "persona", cascade= CascadeType.ALL)
+	private Credenciales credenciales;
+	
+	@OneToMany(mappedBy = "persona")
 	private List<Mensaje> mensajes = new LinkedList<Mensaje>();
 
-	public Ejemplar() {
-		
+	public Persona() {
 	}
 
-
-
-	public Ejemplar(String nombre, Planta planta) {
+	public Persona(String nombre, String email) {
 		this.nombre = nombre;
-		this.planta = planta;
+		this.email = email;
 	}
-
-
 
 	public Long getId() {
 		return id;
 	}
 
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
 
 	public String getNombre() {
 		return nombre;
 	}
 
-
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
-
-
-	public Planta getPlanta() {
-		return planta;
+	public String getEmail() {
+		return email;
 	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
+	public Credenciales getCredenciales() {
+		return credenciales;
+	}
 
-	public void setPlanta(Planta planta) {
-		this.planta = planta;
+	public void setCredenciales(Credenciales credenciales) {
+		this.credenciales = credenciales;
 	}
 	
-
-
-
-
 
 	public List<Mensaje> getMensajes() {
 		return mensajes;
 	}
 
-
-
 	public void setMensajes(List<Mensaje> mensajes) {
 		this.mensajes = mensajes;
 	}
 
-
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, nombre, planta);
+		return Objects.hash(credenciales, email, id, nombre);
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -121,18 +99,15 @@ public class Ejemplar implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Ejemplar other = (Ejemplar) obj;
-		return Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(planta, other.planta);
+		Persona other = (Persona) obj;
+		return Objects.equals(credenciales, other.credenciales) && Objects.equals(email, other.email)
+				&& Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre);
 	}
-
-
 
 	@Override
 	public String toString() {
-		return "Ejemplar [id=" + id + ", nombre=" + nombre + ", planta=" + planta + "]";
+		return "Persona [id=" + id + ", nombre=" + nombre + ", email=" + email + ", credenciales=" + credenciales + "]";
 	}
-	
 	
 	
 	
