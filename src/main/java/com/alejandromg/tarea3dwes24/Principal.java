@@ -22,13 +22,12 @@ public class Principal implements CommandLineRunner {
 	@Autowired
 	ServiciosPersona servPersona;
 
-	
-
-
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println("INI");
-		System.out.println("FINNNNN");
+		System.out.println("FIN");
+    }
+}
 
-}
-}
+
+

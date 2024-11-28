@@ -14,7 +14,7 @@ public class ServiciosPlanta {
 	@Autowired
 	EjemplarRepository ejemplarRepo;
 	
-	public void insertarPlanta(Planta p) {
-		plantaRepo.save(p);
+	public Planta insertarPlanta(Planta p) {
+		return plantaRepo.save(p);
 	}
 }
