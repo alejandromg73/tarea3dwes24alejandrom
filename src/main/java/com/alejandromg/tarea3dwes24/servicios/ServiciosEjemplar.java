@@ -15,7 +15,10 @@ public class ServiciosEjemplar {
 	EjemplarRepository ejemplarRepo;
 	
 
-	public Ejemplar insertarEjemplar(Ejemplar ejemplar) {
-        return ejemplarRepo.save(ejemplar);
+	public void insertarEjemplar(Ejemplar ejemplar) {
+        ejemplarRepo.save(ejemplar);
     }
-}
+	
+	
+	}
+

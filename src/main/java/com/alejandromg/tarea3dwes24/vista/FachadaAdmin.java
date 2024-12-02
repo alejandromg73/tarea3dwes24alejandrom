@@ -336,7 +336,7 @@ public class FachadaAdmin {
 			}
 		} while (!datosPlantaCorrectos);
 		try {
-			long plant = servPlanta.insertar(p);
+			long plant = servPlanta.insertarPlanta(p);
 			if (plant > 0) {
 				System.out.println("Planta insertada correctamente");
 			} else {
@@ -373,7 +373,7 @@ public class FachadaAdmin {
 			correcto = true;
 		} while (!correcto);
 		try {
-			long idEjemplar = servEjemplar.insertar(e);
+			long idEjemplar = servEjemplar.insertarEjemplar(e);
 			if (idEjemplar > 0) {
 				e.setId(idEjemplar);
 				// Llamando al método de cambiar el nombre, le aplicamos el que se requiere para

@@ -10,4 +10,12 @@ public class ServiciosCredenciales {
 	@Autowired
 	CredencialesRepository credencialesRepo;
 	
+	
+	
+	public boolean validarContraseña(String contraseña) {
+		if (contraseña.matches("^(?=.*[.,])[A-Za-z0-9.,]{8,}$")) {
+			return true;
+		}
+		return false;
+	}
 }

@@ -31,10 +31,6 @@ public class Controlador {
         return usuarioAutenticado;
     }
 
-    public void cerrarSesion() {
-        this.usuarioAutenticado = null;
-    }
-
     public ServiciosCredenciales getServiciosCredenciales() {
         return servCred;
     }
@@ -54,4 +50,12 @@ public class Controlador {
     public ServiciosPlanta getServiciosPlanta() {
         return servPlanta;
     }
+    
+    /**
+	 * Este método sirve para cerrar sesión, ya que pone la variable de usuario
+	 * autenticado a nulo
+	 */
+	public void cerrarSesion() {
+		this.usuarioAutenticado = null;
+	}
 }
