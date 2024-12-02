@@ -15,7 +15,10 @@ public class ServiciosPlanta {
 	EjemplarRepository ejemplarRepo;
 	
 	public void insertarPlanta(Planta p) {
-		plantaRepo.save(p);
+		plantaRepo.saveAndFlush(p);
+	}
+	public boolean existeCodigo(Planta p) {
+		return plantaRepo.existeCodigo(p);
 	}
 	
 	/**

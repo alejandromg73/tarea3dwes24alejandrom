@@ -310,7 +310,7 @@ public class FachadaAdmin {
 			try {
 				String codigo = in.nextLine().trim().toUpperCase();
 				boolean correcto = servPlanta.validarCodigo(codigo);
-				boolean existe = servPlanta.codigoExistente(codigo);
+				boolean existe = servPlanta.existeCodigo(codigo);
 				if (!correcto) {
 					System.out.println("El formato del código no es correcto.");
 					continue;

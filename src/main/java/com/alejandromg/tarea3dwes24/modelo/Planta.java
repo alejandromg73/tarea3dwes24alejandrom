@@ -97,9 +97,6 @@ public class Planta implements Serializable{
 	}
 
 
-
-
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, nombreComun, nombreCientifico);

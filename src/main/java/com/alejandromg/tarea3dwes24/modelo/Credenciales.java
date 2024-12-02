@@ -98,7 +98,12 @@ import jakarta.persistence.Table;
 
 		@Override
 		public String toString() {
-			return "Credenciales [id=" + id + ", usuario=" + usuario + ", password=" + password + "]";
+			String ret = "";
+			ret += "Id de credencial: " + this.id;
+			ret += "\nUsuario: " + this.usuario;
+			ret += "\nPassword: " + this.password;
+			ret += "\nId de persona: " + this.persona.getId();
+			return ret;
 		}
 
 	}

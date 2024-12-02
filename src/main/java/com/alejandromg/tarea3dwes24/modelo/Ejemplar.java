@@ -130,7 +130,11 @@ public class Ejemplar implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Ejemplar [id=" + id + ", nombre=" + nombre + ", planta=" + planta + "]";
+		String ret = "";
+		ret += "Id de ejemplar: " + this.id;
+		ret += "\nNombre de ejemplar: " + this.nombre;
+		ret += "\nCodigo de planta: " + this.planta.getCodigo();
+		return ret;
 	}
 	
 	

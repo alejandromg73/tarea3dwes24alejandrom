@@ -12,6 +12,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "mensajes")
@@ -24,6 +26,7 @@ public class Mensaje implements Serializable {
     private Long id;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.TIME)
     private LocalDateTime fechaHora;
 
     @Column(length = 500, nullable = false)
@@ -108,7 +111,13 @@ public class Mensaje implements Serializable {
 	}
 
 	@Override
-    public String toString() {
-        return "Mensaje [id=" + id + ", fechaHora=" + fechaHora + ", mensaje=" + mensaje + ", persona=" + persona.getNombre() + ", ejemplar=" + ejemplar.getNombre() + "]";
-    }
+	public String toString() {
+		String ret = "";
+		ret += "Id de mensaje: " + this.id;
+		ret += "\nFecha y hora: " + this.fechaHora;
+		ret += "\nMensaje: " + this.mensaje;
+		ret += "\nEjemplar: " + this.ejemplar.getNombre();
+		ret += "\nPersona: " + this.persona.getNombre();
+		return ret;
+	}
 }
