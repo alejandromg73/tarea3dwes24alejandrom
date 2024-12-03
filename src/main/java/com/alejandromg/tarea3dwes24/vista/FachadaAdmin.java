@@ -55,16 +55,16 @@ public class FachadaAdmin {
             System.out.println("------MENÚ DE ADMINISTRADOR------");
             System.out.println("───────────────────────────────");
             System.out.println("Selecciona una opción:");
-            System.out.println("1. Gestión de plantas.");
-            System.out.println("2. Gestión de ejemplares.");
-            System.out.println("3. Gestión de mensajes.");
-            System.out.println("4. Gestión de personas.");
+            System.out.println("1. Gestión de plantas");
+            System.out.println("2. Gestión de ejemplares");
+            System.out.println("3. Gestión de mensajes");
+            System.out.println("4. Gestión de personas");
             System.out.println("5. CERRAR SESIÓN.");
             System.out.println("───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 5) {
-                    System.out.println("Opción incorrecta.");
+                    System.out.println("Opción incorrecta");
                     continue;
                 }
                 switch (opcion) {
@@ -85,7 +85,7 @@ public class FachadaAdmin {
                         return;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Debes ingresar un número.");
+                System.out.println("Debes ingresar un número");
                 in.nextLine();
                 opcion = 0;
             }
@@ -97,15 +97,15 @@ public class FachadaAdmin {
         do {
             System.out.println("Selecciona una opción:");
             System.out.println("  ───────────────────────────────");
-            System.out.println("1. Ver plantas.");
-            System.out.println("2. Crear nueva planta.");
-            System.out.println("3. Modificar datos de una planta.");
-            System.out.println("4. Volver al menú principal.");
+            System.out.println("1. Ver plantas");
+            System.out.println("2. Crear nueva planta");
+            System.out.println("3. Modificar datos de una planta");
+            System.out.println("4. Volver al menú principal");
             System.out.println("  ───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 4) {
-                    System.out.println("Opción incorrecta.");
+                    System.out.println("Opción incorrecta");
                     continue;
                 }
                 switch (opcion) {
@@ -120,7 +120,7 @@ public class FachadaAdmin {
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Debes ingresar un número.");
+                System.out.println("Debes ingresar un númer.");
                 in.nextLine();
                 opcion = 0;
             }
@@ -132,14 +132,14 @@ public class FachadaAdmin {
         do {
             System.out.println("Selecciona una opción:");
             System.out.println("  ───────────────────────────────");
-            System.out.println("1. Modificar nombre común.");
-            System.out.println("2. Modificar nombre científico.");
-            System.out.println("3. Volver al menú de plantas.");
+            System.out.println("1. Modificar nombre común");
+            System.out.println("2. Modificar nombre científico");
+            System.out.println("3. Volver al menú de plantas");
             System.out.println("  ───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 3) {
-                    System.out.println("Opción incorrecta.");
+                    System.out.println("Opción incorrecta");
                     continue;
                 }
                 switch (opcion) {
@@ -151,7 +151,7 @@ public class FachadaAdmin {
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Debes ingresar un número.");
+                System.out.println("Debes ingresar un número");
                 in.nextLine();
                 opcion = 0;
             }
@@ -163,15 +163,15 @@ public class FachadaAdmin {
         do {
             System.out.println("Selecciona una opción:");
             System.out.println("  ───────────────────────────────");
-            System.out.println("1. Registrar nuevo ejemplar.");
-            System.out.println("2. Filtrar ejemplares por tipo de planta.");
-            System.out.println("3. Ver mensajes de un ejemplar.");
-            System.out.println("4. Volver al menú principal.");
+            System.out.println("1. Registrar nuevo ejemplar");
+            System.out.println("2. Filtrar ejemplares por tipo de planta");
+            System.out.println("3. Ver mensajes de un ejemplar");
+            System.out.println("4. Volver al menú principal");
             System.out.println("  ───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 4) {
-                    System.out.println("Opción incorrecta.");
+                    System.out.println("Opción incorrecta");
                     continue;
                 }
                 switch (opcion) {
@@ -186,7 +186,7 @@ public class FachadaAdmin {
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Debes ingresar un número.");
+                System.out.println("Debes ingresar un número");
                 in.nextLine();
                 opcion = 0;
             }
@@ -197,14 +197,14 @@ public class FachadaAdmin {
 		do {
 			System.out.println("Selecciona una opción:");
 			System.out.println("  ───────────────────────────────");
-			System.out.println("1. Registrar nueva persona.");
-			System.out.println("2. Ver todas las personas.");
-			System.out.println("3. Volver al menú principal.");
+			System.out.println("1. Registrar nueva persona");
+			System.out.println("2. Ver todas las personas");
+			System.out.println("3. Volver al menú principal");
 			System.out.println("  ───────────────────────────────");
 			try {
 				opcion = in.nextInt();
 				if (opcion < 1 || opcion > 3) {
-					System.out.println("Opción incorrecta.");
+					System.out.println("Opción incorrecta");
 					continue;
 				}
 				switch (opcion) {
@@ -217,7 +217,7 @@ public class FachadaAdmin {
 
 				}
 			} catch (InputMismatchException e) {
-				System.out.println("Debes ingresar un número.");
+				System.out.println("Debes ingresar un número");
 				in.nextLine();
 				opcion = 0;
 			}
@@ -229,14 +229,14 @@ public class FachadaAdmin {
         do {
             System.out.println("Selecciona una opción:");
             System.out.println("  ───────────────────────────────");
-            System.out.println("1. Nuevo mensaje.");
-            System.out.println("2. Ver mensajes.");
-            System.out.println("3. Volver al menú principal.");
+            System.out.println("1. Nuevo mensaje");
+            System.out.println("2. Ver mensajes");
+            System.out.println("3. Volver al menú principal");
             System.out.println("  ───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 3) {
-                    System.out.println("Opción incorrecta.");
+                    System.out.println("Opción incorrecta");
                     continue;
                 }
                 switch (opcion) {
@@ -248,7 +248,7 @@ public class FachadaAdmin {
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Debes ingresar un número.");
+                System.out.println("Debes ingresar un número");
                 in.nextLine();
                 opcion = 0;
             }
@@ -260,16 +260,16 @@ public class FachadaAdmin {
         do {
             System.out.println("Selecciona una opción:");
             System.out.println("  ───────────────────────────────");
-            System.out.println("1. Ver todos los mensajes.");
-            System.out.println("2. Ver mensajes por persona.");
-            System.out.println("3. Ver mensajes por rango de fechas.");
-            System.out.println("4. Ver mensajes por tipo de planta.");
-            System.out.println("5. Volver al menú de mensajes.");
+            System.out.println("1. Ver todos los mensajes");
+            System.out.println("2. Ver mensajes por persona");
+            System.out.println("3. Ver mensajes por rango de fechas");
+            System.out.println("4. Ver mensajes por tipo de planta");
+            System.out.println("5. Volver al menú de mensajes");
             System.out.println("  ───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 5) {
-                    System.out.println("Opción incorrecta.");
+                    System.out.println("Opción incorrecta");
                     continue;
                 }
                 switch (opcion) {
@@ -287,7 +287,7 @@ public class FachadaAdmin {
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Debes ingresar un número.");
+                System.out.println("Debes ingresar un número");
                 in.nextLine();
                 opcion = 0;
             }
@@ -310,13 +310,13 @@ public class FachadaAdmin {
 			try {
 				String codigo = in.nextLine().trim().toUpperCase();
 				boolean correcto = servPlanta.validarCodigo(codigo);
-				boolean existe = servPlanta.existeCodigo(codigo);
+				boolean existe = servPlanta.codigoExistente(codigo);
 				if (!correcto) {
-					System.out.println("El formato del código no es correcto.");
+					System.out.println("El formato del código no es correcto");
 					continue;
 				}
 				if (existe) {
-					System.out.println("El código ya existe para una planta.");
+					System.out.println("El código ya existe para una planta");
 					continue;
 				}
 				p.setCodigo(codigo);
@@ -328,7 +328,7 @@ public class FachadaAdmin {
 				p.setNombreCientifico(nombreCientifico);
 				datosPlantaCorrectos = servPlanta.validarPlanta(p);
 				if (!datosPlantaCorrectos) {
-					System.out.println("Los datos que has introducido no son correctos.");
+					System.out.println("Los datos que has introducido no son correctos");
 				}
 			} catch (Exception ex) {
 				System.out.println("Error durante la entrada de datos: " + ex.getMessage());
@@ -336,15 +336,11 @@ public class FachadaAdmin {
 			}
 		} while (!datosPlantaCorrectos);
 		try {
-			long plant = servPlanta.insertarPlanta(p);
-			if (plant > 0) {
-				System.out.println("Planta insertada correctamente");
-			} else {
-				System.out.println("Error al insertar la planta.");
-			}
-		} catch (Exception ex) {
-			System.out.println("Error al insertar la planta: " + ex.getMessage());
-		}
+	        servPlanta.insertar(p);
+	        System.out.println("Planta insertada");
+	    } catch (Exception ex) {
+	        System.out.println("Error al insertar la planta: " + ex.getMessage());
+	    }
 
 		return p;
 	}
@@ -365,15 +361,15 @@ public class FachadaAdmin {
 			String codigo = in.nextLine().trim().toUpperCase();
 			boolean valido = servPlanta.validarCodigo(codigo);
 			if (!valido) {
-				System.out.println("El formato del código no es correcto.");
+				System.out.println("El formato del código no es correcto");
 				continue;
 			}
-			e.setPlanta(codigo);
+			e.getPlanta().setCodigo(codigo);
 			e.setNombre(codigo);
 			correcto = true;
 		} while (!correcto);
 		try {
-			long idEjemplar = servEjemplar.insertarEjemplar(e);
+			servEjemplar.insertar(e);
 			if (idEjemplar > 0) {
 				e.setId(idEjemplar);
 				// Llamando al método de cambiar el nombre, le aplicamos el que se requiere para
@@ -384,16 +380,16 @@ public class FachadaAdmin {
 				String mensaje = "Añadido el ejemplar " + e.getNombre();
 				LocalDateTime fechaHora = LocalDateTime.now();
 				String usuarioAutenticado = controlador.getUsuarioAutenticado();
-				long idUsuario = servPersona.IdUsuarioAutenticado(usuarioAutenticado);
+				long idUsuario = servPersona.idUsuarioAutenticado(usuarioAutenticado);
 				// A la vez que la insercción del ejemplar, se genera un mensaje
 				m = new Mensaje(fechaHora, mensaje, idEjemplar, idUsuario);
 				if (servMensaje.insertar(m) > 0) {
-					System.out.println("Mensaje de creación del ejemplar añadido correctamente.");
+					System.out.println("Mensaje de creación del ejemplar añadido correctamente");
 				} else {
-					System.out.println("No se pudo añadir el mensaje asociado al ejemplar.");
+					System.out.println("No se pudo añadir el mensaje asociado al ejemplar");
 				}
 			} else {
-				System.out.println("Error al insertar el ejemplar en la base de datos.");
+				System.out.println("Error al insertar el ejemplar en la base de datos");
 			}
 		} catch (Exception ex) {
 			System.out.println("Error al insertar el ejemplar o el mensaje: " + ex.getMessage());
@@ -431,7 +427,7 @@ public class FachadaAdmin {
 				email = in.nextLine().trim();
 				pers.setEmail(email);
 				if (servPersona.emailExistente(email)) {
-					System.out.println("El email que has introducido ya está registrado.");
+					System.out.println("El email que has introducido ya está registrado");
 				} else {
 					emailValido = true;
 				}
@@ -443,7 +439,7 @@ public class FachadaAdmin {
 					System.out.println("El usuario 'admin' ya está ocupado.");
 				} else if (servCredenciales.usuarioExistente(usuario) || usuario.length() < 3) {
 					System.out.println(
-							"El usuario que has introducido ya está registrado o no cumple con los requisitos mínimos.");
+							"El usuario que has introducido ya está registrado o no cumple con los requisitos mínimos");
 				} else {
 					usuarioValido = true;
 					c.setUsuario(usuario);
@@ -456,7 +452,7 @@ public class FachadaAdmin {
 				// introducir
 				if (servCredenciales.validarContraseña(contraseña) == false) {
 					System.out.println(
-							"La contraseña debe tener al menos 8 caracteres e incluir al menos un carácter especial como un punto o una coma.");
+							"La contraseña debe tener al menos 8 caracteres e incluir al menos un carácter especial como un punto o una coma");
 				} else {
 					contraseñaValida = true;
 					c.setPassword(contraseña);
@@ -468,31 +464,18 @@ public class FachadaAdmin {
 			}
 		} while (!correcto);
 		try {
-			long idPersona = servPersona.insertar(pers);
-			if (idPersona > 0) {
-				c.setIdPersona(idPersona);
-				// Cuando se inserta una persona, se generan sus credenciales asociadas
-				int insertarCredenciales = servCredenciales.insertar(usuario, contraseña,
-						idPersona);
-				if (insertarCredenciales > 0) {
-					System.out.println("Persona y sus credenciales insertadas correctamente.");
-				} else {
-					System.out.println("Error al insertar las credenciales en la base de datos.");
-				}
-			} else {
-				System.out.println("Error al insertar la persona.");
-			}
+			servPersona.insertar(pers);
+			System.out.println("Persona insertada");
 		} catch (Exception ex) {
 			System.out.println("Error al insertar la persona nueva: " + ex.getMessage());
 		}
-
 		return pers;
 	}
 
 	public void verTodasPersonas() {
-		ArrayList<Persona> personas = (ArrayList<Persona>) controlador.getServiciosPersona().verTodos();
+		ArrayList<Persona> personas = (ArrayList<Persona>) servPersona.verTodos();
 		if (personas == null || personas.isEmpty()) {
-			System.out.println("Lo siento, no hay personas para mostrar en la base de datos.");
+			System.out.println("Lo siento, no hay personas para mostrar en la base de datos");
 			return;
 		}
 		System.out.println("Todo el personal: ");
@@ -504,9 +487,9 @@ public class FachadaAdmin {
 	}
 
 	public void verTodosMensajes() {
-		ArrayList<Mensaje> mensajes = (ArrayList<Mensaje>) controlador.getServiciosMensaje().verTodos();
+		ArrayList<Mensaje> mensajes = (ArrayList<Mensaje>) servMensaje.verTodos();
 		if (mensajes == null || mensajes.isEmpty()) {
-			System.out.println("Lo siento, no hay mensajes para mostrar en la base de datos.");
+			System.out.println("Lo siento, no hay mensajes para mostrar en la base de datos");
 			return;
 		}
 		System.out.println("Todos los mensajes: ");

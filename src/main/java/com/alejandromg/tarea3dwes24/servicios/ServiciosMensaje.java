@@ -1,33 +1,59 @@
 package com.alejandromg.tarea3dwes24.servicios;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alejandromg.tarea3dwes24.modelo.Mensaje;
 import com.alejandromg.tarea3dwes24.repositorios.MensajeRepository;
 
-	@Service
-	public class ServiciosMensaje {
-		@Autowired
-		MensajeRepository mensajeRepo;
-		
-		
-		/**
-		 * Método para ver validar un mensaje introducido por teclado
-		 * 
-		 * 
-		 * @param Un mensaje que se quiere validar
-		 * @return True si se ha validado, false si no se ha validado
-		 *
-		 */
-		public boolean validarMensaje(String mensaje) {
-			if (mensaje == null || mensaje.trim().isEmpty()) {
-				System.out.println("El mensaje está vacio.");
-				return false;
-			}
-			if (mensaje.length() > 500) {
-				System.out.println("El mensaje es muy largo");
-				return false;
-			}
-			return true;
-		}
+@Service
+public class ServiciosMensaje {
+
+    @Autowired
+    private MensajeRepository mensajeRepo;
+
+    public void insertar(Mensaje m) {
+        mensajeRepo.save(m);
+    }
+
+    public ArrayList<Mensaje> verMensajesRangoFechas(LocalDateTime primeraFecha, LocalDateTime segundaFecha) {
+        List<Mensaje> mensajes = mensajeRepo.findMensajesBetweenFechas(primeraFecha, segundaFecha);
+        return new ArrayList<>(mensajes);
+    }
+
+    public Collection<Mensaje> verTodos() {
+        return mensajeRepo.findAll();
+    }
+
+    public ArrayList<Mensaje> verMensajesPorPersona(long idPersona) {
+        List<Mensaje> mensajes = mensajeRepo.findMensajesByPersonaId(idPersona);
+        return new ArrayList<>(mensajes);
+    }
+
+    public ArrayList<Mensaje> verMensajesPorCodigoPlanta(String codigoPlanta) {
+        List<Mensaje> mensajes = mensajeRepo.findMensajesByCodigoPlanta(codigoPlanta);
+        return new ArrayList<>(mensajes);
+    }
+
+    public ArrayList<Mensaje> verMensajesPorEjemplar(long idEjemplar) {
+        List<Mensaje> mensajes = mensajeRepo.findMensajesByEjemplarId(idEjemplar);
+        return new ArrayList<>(mensajes);
+    }
+
+    public boolean validarMensaje(String mensaje) {
+        if (mensaje == null || mensaje.trim().isEmpty()) {
+            System.out.println("El mensaje está vacio.");
+            return false;
+        }
+        if (mensaje.length() > 500) {
+            System.out.println("El mensaje es muy largo");
+            return false;
+        }
+        return true;
+    }
 }

@@ -1,25 +1,14 @@
 package com.alejandromg.tarea3dwes24.servicios;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+
+//Esta clase Controlador se encarga del manejo de la sesión y de los usuarios autenticados en el programa
 
 @Service
 public class Controlador {
 
-    @Autowired
-    private ServiciosCredenciales servCred;
-
-    @Autowired
-    private ServiciosEjemplar servEjemplar;
-
-    @Autowired
-    private ServiciosMensaje servMensaje;
-
-    @Autowired
-    private ServiciosPersona servPersona;
-
-    @Autowired
-    private ServiciosPlanta servPlanta;
+    
 
     private String usuarioAutenticado;
 
@@ -29,26 +18,6 @@ public class Controlador {
 
     public String getUsuarioAutenticado() {
         return usuarioAutenticado;
-    }
-
-    public ServiciosCredenciales getServiciosCredenciales() {
-        return servCred;
-    }
-
-    public ServiciosEjemplar getServiciosEjemplar() {
-        return servEjemplar;
-    }
-
-    public ServiciosMensaje getServiciosMensaje() {
-        return servMensaje;
-    }
-
-    public ServiciosPersona getServiciosPersona() {
-        return servPersona;
-    }
-
-    public ServiciosPlanta getServiciosPlanta() {
-        return servPlanta;
     }
     
     /**

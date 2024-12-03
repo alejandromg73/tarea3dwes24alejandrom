@@ -56,7 +56,7 @@ public class FachadaInvitado {
                     System.out.println("Saliendo del programa");
                     break;
                 default:
-                    System.out.println("Opción incorrecta.");
+                    System.out.println("Opción incorrecta");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Debes ingresar un número válido.");
@@ -93,9 +93,9 @@ public class FachadaInvitado {
     }
 
     public void verTodasPlantas() {
-        ArrayList<Planta> plantas = (ArrayList<Planta>) servPlanta.verTodos(); 
+        ArrayList<Planta> plantas = (ArrayList<Planta>) servPlanta.verTodas(); 
         if (plantas == null || plantas.isEmpty()) {
-            System.out.println("Lo siento, no hay plantas para mostrar en la base de datos.");
+            System.out.println("Lo siento, no hay plantas para mostrar en la base de datos");
             return;
         }
         System.out.println("Todas las plantas: ");

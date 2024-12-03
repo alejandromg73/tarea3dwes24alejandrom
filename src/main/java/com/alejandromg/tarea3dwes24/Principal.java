@@ -8,7 +8,7 @@ import com.alejandromg.tarea3dwes24.vista.FachadaInvitado;
 public class Principal implements CommandLineRunner {
 	
 	 @Autowired
-	    private FachadaInvitado fachadaInvitado;
+	 private FachadaInvitado fachadaInvitado;
 
 	@Override
 	public void run(String... args) throws Exception {

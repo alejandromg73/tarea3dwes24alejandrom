@@ -188,7 +188,7 @@ public class FachadaPersonal {
                 System.out.println("Introduce el id del ejemplar para ponerle un mensaje: ");
                 idEjemplar = in.nextInt();
                 in.nextLine();
-                Ejemplar ejemplar = serviciosEjemplar.buscarPorId((long) idEjemplar);
+                Ejemplar ejemplar = serviciosEjemplar.buscarPorID((long) idEjemplar);
                 if (ejemplar == null) {
                     System.out.println("No existe un ejemplar con el ID proporcionado.");
                 } else {
@@ -218,9 +218,9 @@ public class FachadaPersonal {
         try {
             System.out.print("Introduce el código de la planta para ver los ejemplares: ");
             String codigo = in.nextLine().trim().toUpperCase();
-            boolean existe = serviciosPlanta.codigoPlantaExiste(codigo);
+            boolean existe = serviciosPlanta.codigoExistente(codigo);
             if (existe) {
-                ArrayList<Ejemplar> ejemplares = serviciosEjemplar.filtrarPorCodigoPlanta(codigo);
+                ArrayList<Ejemplar> ejemplares = serviciosEjemplar.ejemplaresPorTipoPlanta(codigo);
                 if (ejemplares.isEmpty()) {
                     System.out.println("No hay ejemplares para la planta con código: " + codigo);
                 } else {
@@ -305,7 +305,7 @@ public class FachadaPersonal {
             }
         } while (fechaFin == null);
 
-        ArrayList<Mensaje> mensajes = serviciosMensaje.verMensajesPorRangoFechas(fechaInicio, fechaFin);
+        ArrayList<Mensaje> mensajes = serviciosMensaje.verMensajesRangoFechas(fechaInicio, fechaFin);
         if (mensajes.isEmpty()) {
             System.out.println("No se encontraron mensajes en el rango de fechas proporcionado.");
         } else {
