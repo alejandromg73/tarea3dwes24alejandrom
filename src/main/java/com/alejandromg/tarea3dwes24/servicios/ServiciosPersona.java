@@ -52,4 +52,18 @@ public class ServiciosPersona {
     public Persona buscarPorNombre(String nombre){
     	return personaRepo.findByNombreContainingIgnoreCase(nombre);
     }
+    
+    public boolean eliminarPersona(Long id) {
+        try {
+            if (personaRepo.existsById(id)) {
+                personaRepo.deleteById(id);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Error al eliminar la persona: " + e.getMessage());
+            return false;
+        }
+    }
 }

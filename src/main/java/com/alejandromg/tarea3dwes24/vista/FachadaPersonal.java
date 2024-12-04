@@ -96,11 +96,12 @@ public class FachadaPersonal {
             System.out.println("1. Registrar nuevo ejemplar.");
             System.out.println("2. Filtrar ejemplares por tipo de planta.");
             System.out.println("3. Ver mensajes de un ejemplar.");
-            System.out.println("4. Volver al menú principal.");
+            System.out.println("4. Borrar un ejemplar.");
+            System.out.println("5. Volver al menú principal.");
             System.out.println("  ───────────────────────────────");
             try {
                 opcion = in.nextInt();
-                if (opcion < 1 || opcion > 4) {
+                if (opcion < 1 || opcion > 5) {
                     System.out.println("Opción incorrecta.");
                     continue;
                 }
@@ -115,6 +116,9 @@ public class FachadaPersonal {
                         fachadaAdmin.verMensajesEjemplar();
                         break;
                     case 4:
+                    	borrarEjemplar();
+                    	break;
+                    case 5:
                         return;
                 }
             } catch (InputMismatchException e) {
@@ -325,6 +329,24 @@ public class FachadaPersonal {
             for (Mensaje m : mensajes) {
                 System.out.println(m);
             }
+        }
+    }
+    public void borrarEjemplar() {
+        System.out.print("Introduce el id del ejemplar que quieres borrar: ");
+        try {
+            Long idEjemplar = in.nextLong();
+            in.nextLine();
+            boolean eliminado = serviciosEjemplar.borrarEjemplar(idEjemplar);
+            if (eliminado) {
+                System.out.println("El ejemplar ha sido borrado");
+            } else {
+                System.out.println("No se encontró un ejemplar con ese id");
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Error: Debes introducir un número válido");
+            in.nextLine();
+        } catch (Exception e) {
+            System.out.println("Error durante el borrado del ejemplar: " + e.getMessage());
         }
     }
 }

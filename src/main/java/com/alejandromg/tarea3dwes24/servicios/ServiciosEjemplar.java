@@ -58,6 +58,20 @@ public class ServiciosEjemplar {
         }
         return true;
     }
+    
+    public boolean borrarEjemplar(Long id) {
+        try {
+            if (ejemplarRepo.existsById(id)) {
+                ejemplarRepo.deleteById(id);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Error al eliminar el ejemplar: " + e.getMessage());
+            return false;
+        }
+    }
 }
 
 

@@ -170,11 +170,12 @@ public class FachadaAdmin {
             System.out.println("1. Registrar nuevo ejemplar");
             System.out.println("2. Filtrar ejemplares por tipo de planta");
             System.out.println("3. Ver mensajes de un ejemplar");
-            System.out.println("4. Volver al menú principal");
+            System.out.println("4. Borrar un ejemplar");
+            System.out.println("5. Volver al menú principal");
             System.out.println("  ───────────────────────────────");
             try {
                 opcion = in.nextInt();
-                if (opcion < 1 || opcion > 4) {
+                if (opcion < 1 || opcion > 5) {
                     System.out.println("Opción incorrecta");
                     continue;
                 }
@@ -188,13 +189,16 @@ public class FachadaAdmin {
                     case 3:
                         verMensajesEjemplar();
                         break;
+                    case 4:
+                    	fachadaPersonal.borrarEjemplar();
+                    	break;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Debes ingresar un número");
                 in.nextLine();
                 opcion = 0;
             }
-        } while (opcion != 4);
+        } while (opcion != 5);
     }
     public void menuAdminPersonas() {
 		int opcion = 0;
@@ -203,11 +207,12 @@ public class FachadaAdmin {
 			System.out.println("  ───────────────────────────────");
 			System.out.println("1. Registrar nueva persona");
 			System.out.println("2. Ver todas las personas");
-			System.out.println("3. Volver al menú principal");
+			System.out.println("3. Borrar una persona");
+			System.out.println("4. Volver al menú principal");
 			System.out.println("  ───────────────────────────────");
 			try {
 				opcion = in.nextInt();
-				if (opcion < 1 || opcion > 3) {
+				if (opcion < 1 || opcion > 4) {
 					System.out.println("Opción incorrecta");
 					continue;
 				}
@@ -218,14 +223,15 @@ public class FachadaAdmin {
 				case 2:
 					verTodasPersonas();
 					break;
-
+				case 3:
+					borrarPersona();
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("Debes ingresar un número");
 				in.nextLine();
 				opcion = 0;
 			}
-		} while (opcion != 3);
+		} while (opcion != 4);
 	}
 
     public void menuAdminMensajes() {
@@ -403,74 +409,76 @@ public class FachadaAdmin {
 	 * 
 	 */
 	public Persona nuevaPersona() {
-		in.nextLine();
-		Persona pers;
-		Credenciales c;
-		boolean correcto = false;
-		boolean emailValido = false;
-		boolean usuarioValido = false;
-		boolean contraseñaValida = false;
-		String usuario = "";
-		String contraseña = "";
-		do {
-			emailValido = false;
-			usuarioValido = false;
-			contraseñaValida = false;
-			pers = new Persona();
-			c = new Credenciales();
-			System.out.print("Nombre: ");
-			String nombre = in.nextLine().trim();
-			pers.setNombre(nombre);
-			String email = "";
-			do {
-				System.out.print("Email: ");
-				email = in.nextLine().trim();
-				pers.setEmail(email);
-				if (servPersona.emailExistente(email)) {
-					System.out.println("El email que has introducido ya está registrado");
-				} else {
-					emailValido = true;
-				}
-			} while (!emailValido);
-			do {
-				System.out.print("Usuario: ");
-				usuario = in.nextLine().trim();
-				if (usuario.equalsIgnoreCase("ADMIN")) {
-					System.out.println("El usuario 'admin' ya está ocupado.");
-				} else if (servCredenciales.usuarioExistente(usuario) || usuario.length() < 3) {
-					System.out.println(
-							"El usuario que has introducido ya está registrado o no cumple con los requisitos mínimos");
-				} else {
-					usuarioValido = true;
-					c.setUsuario(usuario);
-				}
-			} while (!usuarioValido);
-			do {
-				System.out.print("Contraseña: ");
-				contraseña = in.nextLine().trim();
-				// Una pequeña medida de seguridad para las credenciales que he decidido
-				// introducir
-				if (servCredenciales.validarContraseña(contraseña) == false) {
-					System.out.println(
-							"La contraseña debe tener al menos 8 caracteres e incluir al menos un carácter especial como un punto o una coma");
-				} else {
-					contraseñaValida = true;
-					c.setPassword(contraseña);
-				}
-			} while (!contraseñaValida);
-			correcto = servPersona.validarPersona(pers);
-			if (!correcto) {
-				System.out.println("Los datos que has introducido no son correctos.");
-			}
-		} while (!correcto);
-		try {
-			servPersona.insertar(pers);
-			System.out.println("Persona insertada");
-		} catch (Exception ex) {
-			System.out.println("Error al insertar la persona nueva: " + ex.getMessage());
-		}
-		return pers;
+	    in.nextLine();
+	    Persona pers;
+	    Credenciales c;
+	    boolean correcto = false;
+	    boolean emailValido = false;
+	    boolean usuarioValido = false;
+	    boolean contraseñaValida = false;
+	    String usuario = "";
+	    String contraseña = "";
+	    do {
+	        emailValido = false;
+	        usuarioValido = false;
+	        contraseñaValida = false;
+	        pers = new Persona();  //Creo un objeto de tipo Persona
+	        c = new Credenciales();//Creo un objeto de tipo Credenciales
+	        System.out.print("Nombre: ");
+	        String nombre = in.nextLine().trim();
+	        pers.setNombre(nombre);//Asigno el nombre a la persona
+	        String email = "";
+	        do {
+	            System.out.print("Email: ");
+	            email = in.nextLine().trim();
+	            pers.setEmail(email);//Asigno el email a la persona
+	            if (servPersona.emailExistente(email)) {
+	                System.out.println("El email que has introducido ya está registrado");
+	            } else {
+	                emailValido = true;
+	            }
+	        } while (!emailValido);
+	        do {
+	            System.out.print("Usuario: ");
+	            usuario = in.nextLine().trim();
+	            if (usuario.equalsIgnoreCase("ADMIN")) {
+	                System.out.println("El usuario 'admin' ya está ocupado.");
+	            } else if (servCredenciales.usuarioExistente(usuario) || usuario.length() < 3) {
+	                System.out.println(
+	                        "El usuario que has introducido ya está registrado o no cumple con los requisitos mínimos");
+	            } else {
+	                usuarioValido = true;
+	                c.setUsuario(usuario);//Asigno el usuario a esas credenciales
+	            }
+	        } while (!usuarioValido);
+	        do {
+	            System.out.print("Contraseña: ");
+	            contraseña = in.nextLine().trim();
+	            if (servCredenciales.validarContraseña(contraseña) == false) {
+	                System.out.println(
+	                        "La contraseña debe tener al menos 8 caracteres e incluir al menos un carácter especial como un punto o una coma");
+	            } else {
+	                contraseñaValida = true;
+	                c.setPassword(contraseña);
+	            }
+	        } while (!contraseñaValida);
+	        c.setPersona(pers);  //Vinculo las credenciales a la persona
+	        pers.setCredenciales(c);//Vinculo la persona a las credenciales
+	        //Valido la persona
+	        correcto = servPersona.validarPersona(pers);
+	        if (!correcto) {
+	            System.out.println("Los datos que has introducido no son correctos.");
+	        }
+	    } while (!correcto);
+	    try {
+	        servPersona.insertar(pers);//Inserto la persona y las credenciales a través del cascade
+	        System.out.println("Persona y credenciales insertadas correctamente");
+	    } catch (Exception ex) {
+	        System.out.println("Error al insertar la persona nueva: " + ex.getMessage());
+	    }
+	    return pers;
 	}
+
 
 	public void verTodasPersonas() {
 		ArrayList<Persona> personas = (ArrayList<Persona>) servPersona.verTodos();
@@ -590,4 +598,24 @@ public class FachadaAdmin {
 			System.out.println("Error al intentar obtener los mensajes del ejemplar: " + e.getMessage());
 		}
 	}
+	
+	public void borrarPersona() {
+        System.out.print("Introduce el ID de la persona a eliminar: ");
+        try {
+            Long idPersona = in.nextLong();
+            in.nextLine();
+            boolean borrada = servPersona.eliminarPersona(idPersona);
+            if (borrada) {
+                System.out.println("Persona con el id "+ idPersona + "borrada del sistema");
+            } else {
+                System.out.println("No se encontró una persona con ese id");
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Error: Debes introducir un id válido");
+            in.nextLine();
+        } catch (Exception e) {
+            System.out.println("Error durante la eliminación de la persona: " + e.getMessage());
+        }
+    }
+
 }
