@@ -6,6 +6,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import com.alejandromg.tarea3dwes24.modelo.Credenciales;
@@ -13,12 +14,12 @@ import com.alejandromg.tarea3dwes24.modelo.Ejemplar;
 import com.alejandromg.tarea3dwes24.modelo.Mensaje;
 import com.alejandromg.tarea3dwes24.modelo.Persona;
 import com.alejandromg.tarea3dwes24.modelo.Planta;
+import com.alejandromg.tarea3dwes24.servicios.Controlador;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosCredenciales;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosEjemplar;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosMensaje;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPersona;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
-import com.alejandromg.tarea3dwes24.servicios.Controlador;
 
 @Component
 public class FachadaAdmin {
@@ -39,12 +40,15 @@ public class FachadaAdmin {
     private ServiciosCredenciales servCredenciales;
 
     @Autowired
+    @Lazy
     private Controlador controlador;
 
     @Autowired
+    @Lazy
     private FachadaInvitado fachadaInvitado;
 
     @Autowired
+    @Lazy
     private FachadaPersonal fachadaPersonal;
 
     private Scanner in = new Scanner(System.in);
@@ -345,57 +349,53 @@ public class FachadaAdmin {
 		return p;
 	}
 
-	/**
-	 * Método para crear un nuevo ejemplar, con sus validaciones y controlando las
-	 * excepciones que pueden surgir
-	 * 
-	 */
 	public Ejemplar nuevoEjemplar() {
-		in.nextLine();
-		Ejemplar e;
-		Mensaje m;
-		boolean correcto = false;
-		do {
-			e = new Ejemplar();
-			System.out.print("Código de la planta del ejemplar: ");
-			String codigo = in.nextLine().trim().toUpperCase();
-			boolean valido = servPlanta.validarCodigo(codigo);
-			if (!valido) {
-				System.out.println("El formato del código no es correcto");
-				continue;
-			}
-			e.getPlanta().setCodigo(codigo);
-			e.setNombre(codigo);
-			correcto = true;
-		} while (!correcto);
-		try {
-			servEjemplar.insertar(e);
-			if (idEjemplar > 0) {
-				e.setId(idEjemplar);
-				// Llamando al método de cambiar el nombre, le aplicamos el que se requiere para
-				// los ejemplares
-				e.setNombre(e.getCodigo() + "_" + idEjemplar);
-				System.out.println("Ejemplar insertado con ID: " + idEjemplar);
-				servEjemplar.cambiarNombre(e.getId(), e.getNombre());
-				String mensaje = "Añadido el ejemplar " + e.getNombre();
-				LocalDateTime fechaHora = LocalDateTime.now();
-				String usuarioAutenticado = controlador.getUsuarioAutenticado();
-				long idUsuario = servPersona.idUsuarioAutenticado(usuarioAutenticado);
-				// A la vez que la insercción del ejemplar, se genera un mensaje
-				m = new Mensaje(fechaHora, mensaje, idEjemplar, idUsuario);
-				if (servMensaje.insertar(m) > 0) {
-					System.out.println("Mensaje de creación del ejemplar añadido correctamente");
-				} else {
-					System.out.println("No se pudo añadir el mensaje asociado al ejemplar");
-				}
-			} else {
-				System.out.println("Error al insertar el ejemplar en la base de datos");
-			}
-		} catch (Exception ex) {
-			System.out.println("Error al insertar el ejemplar o el mensaje: " + ex.getMessage());
-		}
-		return e;
+	    in.nextLine();
+	    Ejemplar e = null;
+	    Mensaje m = null;
+	    boolean correcto = false;
+	    do {
+	        try {
+	            System.out.print("Código de la planta del ejemplar: ");
+	            String codigoPlanta = in.nextLine().trim().toUpperCase();
+	            boolean codigoValido = servPlanta.validarCodigo(codigoPlanta);
+	            boolean plantaExiste = servPlanta.codigoExistente(codigoPlanta);
+	            if (!codigoValido) {
+	                System.out.println("El formato del código no es correcto");
+	                continue;
+	            }
+	            if (!plantaExiste) {
+	                System.out.println("No existe una planta con ese codigo");
+	                continue;
+	            }
+	            Planta p = servPlanta.buscarPorCodigo(codigoPlanta);
+	            e = new Ejemplar();
+	            e.setPlanta(p);
+	            e.setNombre(codigoPlanta);
+	            servEjemplar.insertar(e);
+	            e.setNombre(e.getPlanta().getCodigo() + "_" + e.getId());
+	            servEjemplar.cambiarNombre(e.getId(), e.getNombre());
+	            System.out.println("Ejemplar insertado con ID: " + e.getId());
+	            String mensajeTexto = "Añadido el ejemplar " + e.getNombre();
+	            LocalDateTime fechaHora = LocalDateTime.now();
+	            String usuarioAutenticado = controlador.getUsuarioAutenticado();
+	            Persona persona = servPersona.buscarPorNombre(usuarioAutenticado);
+	            if (persona == null) {
+	                System.out.println("Error: No se ha encontrado la persona autenticada");
+	            } else {
+	                m = new Mensaje(fechaHora, mensajeTexto, persona, e);
+	                servMensaje.insertar(m);
+	                System.out.println("Mensaje de creación del ejemplar añadido");
+	            }
+	            correcto = true;
+	        } catch (Exception ex) {
+	            System.out.println("Error durante la creación del ejemplar: " + ex.getMessage());
+	            correcto = false;
+	        }
+	    } while (!correcto);
+	    return e;
 	}
+
 
 	/**
 	 * Método para crear una nueva planta, con sus validaciones y controlando las
@@ -501,71 +501,70 @@ public class FachadaAdmin {
 	}
 
 	public void modificarNombreComun() {
-		in.nextLine();
-		boolean valido = false;
-		String codigo = "";
-		boolean existe = false;
-		do {
-			System.out.print("Introduce el código de la planta de la que quieres modificar el nombre común: ");
-			codigo = in.nextLine().trim().toUpperCase();
-			valido = servPlanta.validarCodigo(codigo);
-			if (valido == false) {
-				System.out.println("El código de la planta que has introducido no es válido");
-			}
-		} while (valido == false);
-		existe = servPlanta.codigoExistente(codigo);
-		if (existe == false) {
-			System.out.println("El código de la planta que has introducido no existe en la base de datos");
-		}
-		System.out.print("Introduce el nuevo nombre común de la planta: ");
-		String nuevoNombreComun = in.nextLine().trim().toUpperCase();
-		try {
-			boolean nuevo = servPlanta.actualizarNombreComun(codigo, nuevoNombreComun);
-			if (nuevo == true) {
-				System.out.println("El nombre común de la planta con código " + codigo
-						+ " ha sido actualizado, ahora el nombre es: " + nuevoNombreComun);
-			} else {
-				System.out.println("Error al intentar actualizar el nombre común");
-			}
-		} catch (Exception ex) {
-			System.out.println("Error al actualizar el nombre común: " + ex.getMessage());
-		}
+	    in.nextLine();
+	    String codigo = "";
+	    boolean valido = false;
+	    do {
+	        System.out.print("Introduce el código de la planta de la que quieres modificar el nombre común: ");
+	        codigo = in.nextLine().trim().toUpperCase();
+	        valido = servPlanta.validarCodigo(codigo);
+	        if (!valido) {
+	            System.out.println("El código de la planta que has introducido no es válido");
+	        }
+	    } while (!valido);
+	    boolean existe = servPlanta.codigoExistente(codigo);
+	    if (!existe) {
+	        System.out.println("El código de la planta que has introducido no existe en la base de datos");
+	        return;
+	    }
+	    System.out.print("Introduce el nuevo nombre común de la planta: ");
+	    String nuevoNombreComun = in.nextLine().trim().toUpperCase();
+	    try {
+	        boolean actualizado = servPlanta.actualizarNombreComun(codigo, nuevoNombreComun);
+	        if (actualizado) {
+	            System.out.println("El nombre común de la planta con código " + codigo
+	                    + " ha sido actualizado, ahora el nombre es: " + nuevoNombreComun);
+	        } else {
+	            System.out.println("Error al intentar actualizar el nombre común");
+	        }
+	    } catch (Exception ex) {
+	        System.out.println("Error al actualizar el nombre común: " + ex.getMessage());
+	    }
 	}
+
 
 	public void modificarNombreCientifico() {
-		in.nextLine();
-		boolean valido = false;
-		boolean existe = false;
-		String codigo = "";
-		do {
-			System.out.print("Introduce el código de la planta de la que quieres modificar el nombre científico: ");
-			codigo = in.nextLine().trim().toUpperCase();
-			valido = servPlanta.validarCodigo(codigo);
-			if (valido == false) {
-				System.out.println("El código de la planta que has introducido no es válido");
-			}
-		} while (valido == false);
-		existe = servPlanta.codigoExistente(codigo);
-		if (existe == false) {
-			System.out.println("El código de la planta que has introducido no existe en la base de datos");
-		}
-		while (valido == false)
-			;
-		System.out.print("Introduce el nuevo nombre cientifico de la planta: ");
-		String nuevoNombreCientifico = in.nextLine().trim();
-		try {
-			boolean nuevo = servPlanta.actualizarNombreCientifico(codigo, nuevoNombreCientifico);
-			if (nuevo == true) {
-				System.out.println("El nombre cientifico de la planta con código " + codigo
-						+ " ha sido actualizado, ahora el nombre es: " + nuevoNombreCientifico);
-			} else {
-				System.out.println("Error al intentar actualizar el nombre cientifico");
-			}
-		} catch (Exception ex) {
-			System.out.println("Error al actualizar el nombre cientifico: " + ex.getMessage());
-		}
-
+	    in.nextLine();
+	    String codigo = "";
+	    boolean valido = false;
+	    do {
+	        System.out.print("Introduce el código de la planta de la que quieres modificar el nombre científico: ");
+	        codigo = in.nextLine().trim().toUpperCase();
+	        valido = servPlanta.validarCodigo(codigo);
+	        if (!valido) {
+	            System.out.println("El código de la planta que has introducido no es válido");
+	        }
+	    } while (!valido);
+	    boolean existe = servPlanta.codigoExistente(codigo);
+	    if (!existe) {
+	        System.out.println("El código de la planta que has introducido no existe en la base de datos");
+	        return; 
+	    }
+	    System.out.print("Introduce el nuevo nombre científico de la planta: ");
+	    String nuevoNombreCientifico = in.nextLine().trim();
+	    try {
+	        boolean actualizado = servPlanta.actualizarNombreCientifico(codigo, nuevoNombreCientifico);
+	        if (actualizado) {
+	            System.out.println("El nombre científico de la planta con código " + codigo
+	                    + " ha sido actualizado, ahora el nombre es: " + nuevoNombreCientifico);
+	        } else {
+	            System.out.println("Error al intentar actualizar el nombre científico");
+	        }
+	    } catch (Exception ex) {
+	        System.out.println("Error al actualizar el nombre científico: " + ex.getMessage());
+	    }
 	}
+
 
 	public void verMensajesEjemplar() {
 		System.out.print("Introduce el id de un ejemplar para ver sus mensajes: ");

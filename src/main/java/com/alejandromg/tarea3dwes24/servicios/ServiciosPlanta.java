@@ -1,6 +1,6 @@
 package com.alejandromg.tarea3dwes24.servicios;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +32,8 @@ public class ServiciosPlanta {
      * 
      * @return Colección de todas las plantas
      */
-    public Collection<Planta> verTodas() {
-        return plantaRepo.findAll();
+    public List<Planta> verTodas() {
+    	return plantaRepo.findAllByOrderByNombreComunAsc();
     }
 
     /**
@@ -147,6 +147,11 @@ public class ServiciosPlanta {
             return false;
         }
         return true;
+    }
+    
+    public Planta buscarPorCodigo(String codigo) {
+        Optional<Planta> plantaOptional = plantaRepo.findByCodigo(codigo);
+        return plantaOptional.orElse(null);
     }
 }
 

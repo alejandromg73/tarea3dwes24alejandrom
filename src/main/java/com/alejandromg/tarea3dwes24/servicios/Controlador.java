@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class Controlador {
 
-    
-
     private String usuarioAutenticado;
 
     public void setUsuarioAutenticado(String usuario) {

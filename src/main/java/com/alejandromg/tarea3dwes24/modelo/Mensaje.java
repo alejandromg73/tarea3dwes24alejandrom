@@ -12,8 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "mensajes")
@@ -26,7 +24,6 @@ public class Mensaje implements Serializable {
     private Long id;
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIME)
     private LocalDateTime fechaHora;
 
     @Column(length = 500, nullable = false)

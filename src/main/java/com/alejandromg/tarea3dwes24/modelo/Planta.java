@@ -118,7 +118,7 @@ public class Planta implements Serializable{
 	@Override
 	public String toString() {
 		String ret = "";
-		ret += "Codigo de planta: " + this.id;
+		ret += "Codigo de planta: " + this.codigo;
 		ret += "\nNombre científico: " + this.nombreCientifico;
 		ret += "\nNombre común: " + this.nombreComun;
 		return ret;

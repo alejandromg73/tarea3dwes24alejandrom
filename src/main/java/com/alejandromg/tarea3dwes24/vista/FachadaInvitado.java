@@ -1,6 +1,7 @@
 package com.alejandromg.tarea3dwes24.vista;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -22,12 +23,15 @@ public class FachadaInvitado {
     private ServiciosPlanta servPlanta;
 
     @Autowired
+    @Lazy
     private FachadaAdmin fachadaAdmin;
 
     @Autowired
+    @Lazy
     private FachadaPersonal fachadaPersonal;
 
     @Autowired
+    @Lazy
     private Controlador controlador; 
 
     private Scanner in = new Scanner(System.in);

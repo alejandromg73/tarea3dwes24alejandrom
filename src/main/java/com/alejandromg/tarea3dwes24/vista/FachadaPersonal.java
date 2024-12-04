@@ -8,6 +8,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import com.alejandromg.tarea3dwes24.modelo.Ejemplar;
@@ -23,6 +24,7 @@ import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
 public class FachadaPersonal {
 
     @Autowired
+    @Lazy
     private Controlador controlador;
 
     @Autowired
@@ -38,9 +40,11 @@ public class FachadaPersonal {
     private ServiciosPlanta serviciosPlanta;
 
     @Autowired
+    @Lazy
     private FachadaAdmin fachadaAdmin;
 
     @Autowired
+    @Lazy
     private FachadaInvitado fachadaInvitado;
 
     private Scanner in = new Scanner(System.in);
@@ -179,40 +183,49 @@ public class FachadaPersonal {
     }
 
     public void nuevoMensaje() {
-        int idEjemplar = 0;
         boolean correcto = false;
         do {
             try {
-                verTodosEjemplares();
+                serviciosEjemplar.verTodos();
+                if (serviciosEjemplar.verTodos() == null || serviciosEjemplar.verTodos().isEmpty()) {
+                    System.out.println("No hay ejemplares para mostrar.");
+                    return; 
+                }
                 System.out.println();
-                System.out.println("Introduce el id del ejemplar para ponerle un mensaje: ");
-                idEjemplar = in.nextInt();
+                System.out.print("Introduce el id del ejemplar para ponerle un mensaje: ");
+                int idEjemplar = in.nextInt();
                 in.nextLine();
                 Ejemplar ejemplar = serviciosEjemplar.buscarPorID((long) idEjemplar);
                 if (ejemplar == null) {
-                    System.out.println("No existe un ejemplar con el ID proporcionado.");
+                    System.out.println("No existe un ejemplar con el ID proporcionado");
                 } else {
                     System.out.println("Introduce el mensaje: ");
-                    String mensajeTexto = in.nextLine();
-                    if (mensajeTexto.trim().isEmpty()) {
-                        System.out.println("El mensaje no puede estar vacío.");
-                    } else {
-                        Persona persona = serviciosPersona.buscarPorNombre(controlador.getUsuarioAutenticado());
-                        Mensaje nuevoMensaje = new Mensaje(LocalDateTime.now(), mensajeTexto, persona, ejemplar);
-                        if (serviciosMensaje.insertar(nuevoMensaje) != null) {
+                    String mensajeTexto = in.nextLine().trim();
+                    if (mensajeTexto.isEmpty()) {
+                        System.out.println("El mensaje no puede estar vací.");
+                    } else if (serviciosMensaje.validarMensaje(mensajeTexto)) {
+                        String usuarioAutenticado = controlador.getUsuarioAutenticado();
+                        Persona p = serviciosPersona.buscarPorNombre(usuarioAutenticado);
+                        if (p == null) {
+                            System.out.println("Error: No se ha encontrado la persona autenticada");
+                        } else {
+                            Mensaje nuevoMensaje = new Mensaje(LocalDateTime.now(), mensajeTexto, p, ejemplar);
+                            serviciosMensaje.insertar(nuevoMensaje);
                             System.out.println("Mensaje añadido.");
                             correcto = true;
-                        } else {
-                            System.out.println("No se ha podido añadir el mensaje.");
                         }
+                    } else {
+                        System.out.println("El mensaje no es válido, posiblemente sea demasiado largo");
                     }
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Debes introducir un número válido.");
+                System.out.println("Debes introducir un número válido");
                 in.nextLine();
             }
         } while (!correcto);
     }
+
+
 
     public void filtrarEjemplaresPorCodigoPlanta() {
         try {
@@ -304,7 +317,6 @@ public class FachadaPersonal {
                 System.out.println("Formato de fecha no válido.");
             }
         } while (fechaFin == null);
-
         ArrayList<Mensaje> mensajes = serviciosMensaje.verMensajesRangoFechas(fechaInicio, fechaFin);
         if (mensajes.isEmpty()) {
             System.out.println("No se encontraron mensajes en el rango de fechas proporcionado.");
