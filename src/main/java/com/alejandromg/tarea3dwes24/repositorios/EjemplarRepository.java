@@ -16,7 +16,7 @@ import jakarta.transaction.Transactional;
 public interface EjemplarRepository extends JpaRepository <Ejemplar, Long>{
 
 	 @Query("SELECT COUNT(e) FROM Ejemplar e")
-    int contarEjemplares();
+    long contarEjemplares();
 
 	 @Query("SELECT e FROM Ejemplar e WHERE e.planta.codigo = :codigoPlanta")
 	 List<Ejemplar> ejemplaresPorTipoPlanta(@Param("codigoPlanta") String codigoPlanta);

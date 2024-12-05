@@ -48,7 +48,6 @@ public class FachadaPersonal {
     private FachadaInvitado fachadaInvitado;
 
     private Scanner in = new Scanner(System.in);
-
     public void menuPersonal() {
         int opcion = 0;
         do {
@@ -206,7 +205,7 @@ public class FachadaPersonal {
                     System.out.println("Introduce el mensaje: ");
                     String mensajeTexto = in.nextLine().trim();
                     if (mensajeTexto.isEmpty()) {
-                        System.out.println("El mensaje no puede estar vací.");
+                        System.out.println("El mensaje no puede estar vacío.");
                     } else if (serviciosMensaje.validarMensaje(mensajeTexto)) {
                         String usuarioAutenticado = controlador.getUsuarioAutenticado();
                         Persona p = serviciosPersona.buscarPorNombre(usuarioAutenticado);
@@ -307,7 +306,6 @@ public class FachadaPersonal {
                 System.out.println("Formato de fecha no válido.");
             }
         } while (fechaInicio == null);
-
         do {
             try {
                 System.out.print("Introduce la segunda fecha y la hora con el formato: dd-MM-yyyy HH:mm ");

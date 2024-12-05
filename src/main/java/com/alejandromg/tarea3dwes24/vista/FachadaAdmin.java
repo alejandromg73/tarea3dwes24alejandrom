@@ -604,7 +604,7 @@ public class FachadaAdmin {
         try {
             Long idPersona = in.nextLong();
             in.nextLine();
-            boolean borrada = servPersona.eliminarPersona(idPersona);
+            boolean borrada = servPersona.borrarPersona(idPersona);
             if (borrada) {
                 System.out.println("Persona con el id "+ idPersona + "borrada del sistema");
             } else {

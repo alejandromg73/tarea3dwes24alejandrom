@@ -33,7 +33,7 @@ public class Ejemplar implements Serializable {
 	@JoinColumn(name="idplanta")
 	private Planta planta;
 	
-	@OneToMany(mappedBy = "ejemplar", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "ejemplar", cascade = CascadeType.ALL)
 	private List<Mensaje> mensajes = new LinkedList<Mensaje>();
 
 	public Ejemplar() {

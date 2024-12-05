@@ -51,7 +51,7 @@ public class ServiciosCredenciales {
         credenciales.setUsuario(usuario);
         credenciales.setPassword(password);
         credenciales.setPersona(p);
-        credencialesRepo.save(credenciales);
+        credencialesRepo.saveAndFlush(credenciales);
     }
 
     /**

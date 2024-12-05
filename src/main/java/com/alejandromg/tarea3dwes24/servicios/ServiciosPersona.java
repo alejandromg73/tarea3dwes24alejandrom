@@ -3,10 +3,13 @@ package com.alejandromg.tarea3dwes24.servicios;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import com.alejandromg.tarea3dwes24.modelo.Persona;
 import com.alejandromg.tarea3dwes24.repositorios.PersonaRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ServiciosPersona {
@@ -15,7 +18,7 @@ public class ServiciosPersona {
     private PersonaRepository personaRepo;
 
     public void insertar(Persona pers) {
-        personaRepo.save(pers);
+        personaRepo.saveAndFlush(pers);
     }
 
     public Collection<Persona> verTodos() {
@@ -52,8 +55,9 @@ public class ServiciosPersona {
     public Persona buscarPorNombre(String nombre){
     	return personaRepo.findByNombreContainingIgnoreCase(nombre);
     }
-    
-    public boolean eliminarPersona(Long id) {
+    @Transactional
+    @Modifying
+    public boolean borrarPersona(Long id) {
         try {
             if (personaRepo.existsById(id)) {
                 personaRepo.deleteById(id);

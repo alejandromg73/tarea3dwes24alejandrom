@@ -18,7 +18,7 @@ public class ServiciosMensaje {
     private MensajeRepository mensajeRepo;
 
     public void insertar(Mensaje m) {
-        mensajeRepo.save(m);
+        mensajeRepo.saveAndFlush(m);
     }
 
     public ArrayList<Mensaje> verMensajesRangoFechas(LocalDateTime primeraFecha, LocalDateTime segundaFecha) {
@@ -47,11 +47,9 @@ public class ServiciosMensaje {
 
     public boolean validarMensaje(String mensaje) {
         if (mensaje == null || mensaje.trim().isEmpty()) {
-            System.out.println("El mensaje está vacio.");
             return false;
         }
         if (mensaje.length() > 500) {
-            System.out.println("El mensaje es muy largo");
             return false;
         }
         return true;

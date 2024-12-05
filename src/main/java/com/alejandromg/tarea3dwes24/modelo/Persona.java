@@ -31,10 +31,10 @@ public class Persona implements Serializable{
 	@Column(unique=true, nullable = false)
 	private String email;
 	
-	@OneToOne(mappedBy= "persona", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(mappedBy= "persona", cascade = CascadeType.ALL)
 	private Credenciales credenciales;
 	
-	@OneToMany(mappedBy = "persona")
+	@OneToMany(mappedBy = "persona", cascade = CascadeType.ALL)
 	private List<Mensaje> mensajes = new LinkedList<Mensaje>();
 
 	public Persona() {
@@ -110,6 +110,8 @@ public class Persona implements Serializable{
 		ret += "Id: " + this.id;
 		ret += "\nNombre: " + this.nombre;
 		ret += "\nEmail: " + this.email;
+		ret += "\nUsuario: " + this.credenciales.getUsuario();
+		ret += "\nContraseña: " + this.credenciales.getPassword();
 		return ret;
 	}
 	

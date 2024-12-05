@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ public class ServiciosEjemplar {
     private EjemplarRepository ejemplarRepo;
 
     public void insertar(Ejemplar e) {
-    	ejemplarRepo.save(e);
+    	ejemplarRepo.saveAndFlush(e);
     }
 
     public Collection<Ejemplar> verTodos() {
@@ -37,7 +38,7 @@ public class ServiciosEjemplar {
         return filas > 0;
     }
 
-    public int contarEjemplares() {
+    public long contarEjemplares() {
         return ejemplarRepo.contarEjemplares();
     }
 
@@ -58,7 +59,8 @@ public class ServiciosEjemplar {
         }
         return true;
     }
-    
+    @Transactional
+    @Modifying
     public boolean borrarEjemplar(Long id) {
         try {
             if (ejemplarRepo.existsById(id)) {
