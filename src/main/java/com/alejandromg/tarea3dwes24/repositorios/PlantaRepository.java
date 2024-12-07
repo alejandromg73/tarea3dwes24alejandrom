@@ -14,20 +14,20 @@ import com.alejandromg.tarea3dwes24.modelo.Planta;
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface PlantaRepository extends JpaRepository <Planta, Long>{
-    Optional<Planta> findById(Long id);
+public interface PlantaRepository extends JpaRepository<Planta, Long> {
+	Optional<Planta> findById(Long id);
 
 	@Modifying
 	@Transactional
-    @Query("UPDATE Planta p SET p.nombreComun = :nombreComun WHERE p.codigo = :codigo")
-    int actualizarNombreComun(@Param("codigo") String codigo, @Param("nombreComun") String nombreComun);
+	@Query("UPDATE Planta p SET p.nombreComun = :nombreComun WHERE p.codigo = :codigo")
+	int actualizarNombreComun(@Param("codigo") String codigo, @Param("nombreComun") String nombreComun);
 
 	@Modifying
 	@Transactional
-    @Query("UPDATE Planta p SET p.nombreCientifico = :nombreCientifico WHERE p.codigo = :codigo")
-    int actualizarNombreCientifico(@Param("codigo") String codigo, @Param("nombreCientifico") String nombreCientifico);
+	@Query("UPDATE Planta p SET p.nombreCientifico = :nombreCientifico WHERE p.codigo = :codigo")
+	int actualizarNombreCientifico(@Param("codigo") String codigo, @Param("nombreCientifico") String nombreCientifico);
 
-	Optional <Planta> findByCodigo(String codigo);
+	Optional<Planta> findByCodigo(String codigo);
 
 	boolean existsByCodigo(String codigo);
 

@@ -114,7 +114,7 @@ public class ServiciosPlanta {
         if (p.getNombreCientifico().isEmpty() || p.getNombreComun().isEmpty()) {
             return false;
         }
-        if (!p.getCodigo().matches("^[A-Za-z0-9]+$")) {
+        if (!p.getCodigo().matches("^[A-ZÁÉÍÓÚÑ]+$")) {
             return false;
         }
         if (p.getNombreCientifico().length() < 3 || p.getNombreCientifico().length() > 100) {

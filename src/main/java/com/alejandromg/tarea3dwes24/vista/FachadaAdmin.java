@@ -316,7 +316,7 @@ public class FachadaAdmin {
 		boolean datosPlantaCorrectos = false;
 		do {
 			p = new Planta();
-			System.out.print("Código: ");
+			System.out.print("Código (mayúsculas): ");
 			try {
 				String codigo = in.nextLine().trim().toUpperCase();
 				boolean correcto = servPlanta.validarCodigo(codigo);
@@ -442,10 +442,9 @@ public class FachadaAdmin {
 	            System.out.print("Usuario: ");
 	            usuario = in.nextLine().trim();
 	            if (usuario.equalsIgnoreCase("ADMIN")) {
-	                System.out.println("El usuario 'admin' ya está ocupado.");
+	                System.out.println("El usuario admin ya está ocupado.");
 	            } else if (servCredenciales.usuarioExistente(usuario) || usuario.length() < 3) {
-	                System.out.println(
-	                        "El usuario que has introducido ya está registrado o no cumple con los requisitos mínimos");
+	                System.out.println("El usuario que has introducido ya está registrado o no cumple con los requisitos mínimos");
 	            } else {
 	                usuarioValido = true;
 	                c.setUsuario(usuario);//Asigno el usuario a esas credenciales
@@ -455,8 +454,7 @@ public class FachadaAdmin {
 	            System.out.print("Contraseña: ");
 	            contraseña = in.nextLine().trim();
 	            if (servCredenciales.validarContraseña(contraseña) == false) {
-	                System.out.println(
-	                        "La contraseña debe tener al menos 8 caracteres e incluir al menos un carácter especial como un punto o una coma");
+	                System.out.println("La contraseña debe tener al menos 8 caracteres e incluir al menos un carácter especial como un punto o una coma");
 	            } else {
 	                contraseñaValida = true;
 	                c.setPassword(contraseña);
@@ -526,7 +524,7 @@ public class FachadaAdmin {
 	        return;
 	    }
 	    System.out.print("Introduce el nuevo nombre común de la planta: ");
-	    String nuevoNombreComun = in.nextLine().trim().toUpperCase();
+	    String nuevoNombreComun = in.nextLine().trim();
 	    try {
 	        boolean actualizado = servPlanta.actualizarNombreComun(codigo, nuevoNombreComun);
 	        if (actualizado) {
@@ -600,13 +598,13 @@ public class FachadaAdmin {
 	}
 	
 	public void borrarPersona() {
-        System.out.print("Introduce el ID de la persona a eliminar: ");
+        System.out.print("Introduce el id de la persona a eliminar: ");
         try {
             Long idPersona = in.nextLong();
             in.nextLine();
             boolean borrada = servPersona.borrarPersona(idPersona);
             if (borrada) {
-                System.out.println("Persona con el id "+ idPersona + "borrada del sistema");
+                System.out.println("Persona con el id "+ idPersona + " borrada del sistema");
             } else {
                 System.out.println("No se encontró una persona con ese id");
             }

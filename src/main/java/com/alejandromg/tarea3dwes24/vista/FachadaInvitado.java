@@ -39,14 +39,14 @@ public class FachadaInvitado {
     public void menuInvitado() {
         int opcion = 0;
         do {
-            System.out.println("------GESTIÓN DEL VIVERO------");
+            System.out.println("\t\t------GESTIÓN DEL VIVERO------");
             System.out.println();
-            System.out.println("Selecciona una opción: ");
-            System.out.println("───────────────────────────────");
-            System.out.println("1. VER TODAS LAS PLANTAS");
-            System.out.println("2. LOGUEARSE");
-            System.out.println("3. SALIR DEL PROGRAMA");
-            System.out.println("───────────────────────────────");
+            System.out.println("\t\tSelecciona una opción: ");
+            System.out.println("\t\t───────────────────────────────");
+            System.out.println("\t\t1. VER TODAS LAS PLANTAS");
+            System.out.println("\t\t2. LOGUEARSE");
+            System.out.println("\t\t3. SALIR DEL PROGRAMA");
+            System.out.println("\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 switch (opcion) {
@@ -58,6 +58,7 @@ public class FachadaInvitado {
                     break;
                 case 3:
                     System.out.println("Saliendo del programa");
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Opción incorrecta");
@@ -73,15 +74,15 @@ public class FachadaInvitado {
     public void login() {
         in.nextLine();  
         System.out.print("Introduce usuario: ");
-        String usuario = in.nextLine();
+        String usuario = in.nextLine().trim();
         System.out.print("Introduce contraseña: ");
-        String contraseña = in.nextLine();
+        String contraseña = in.nextLine().trim();
         try {
             boolean autenticar = servCred.autenticar(usuario, contraseña);  
             if (autenticar) {
                 System.out.println("Has iniciado sesión como " + usuario);
-                controlador.setUsuarioAutenticado(usuario);  
-                if ("admin".equals(usuario) && "admin".equals(contraseña)) {
+                controlador.setUsuarioAutenticado(usuario);
+                if ("admin".equalsIgnoreCase(usuario) && "admin".equalsIgnoreCase(contraseña)) {
                     System.out.println("Eres el usuario administrador");
                     fachadaAdmin.menuAdmin(); 
                 } else {
@@ -95,6 +96,7 @@ public class FachadaInvitado {
             System.out.println("No se ha podido iniciar sesión: " + e.getMessage());
         }
     }
+
 
     public void verTodasPlantas() {
         ArrayList<Planta> plantas = (ArrayList<Planta>) servPlanta.verTodas(); 

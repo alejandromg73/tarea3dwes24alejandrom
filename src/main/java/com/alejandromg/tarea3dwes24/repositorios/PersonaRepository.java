@@ -8,13 +8,13 @@ import org.springframework.stereotype.Repository;
 import com.alejandromg.tarea3dwes24.modelo.Persona;
 
 @Repository
-public interface PersonaRepository extends JpaRepository <Persona, Long>{
+public interface PersonaRepository extends JpaRepository<Persona, Long> {
 
 	boolean existsByEmail(String email);
 
-	 @Query("SELECT c.persona.id FROM Credenciales c WHERE c.usuario = :usuario")
-	 Long idUsuarioAutenticado(@Param("usuario") String usuario);
-	 
-	 Persona findByNombreContainingIgnoreCase(String nombre);
+	@Query("SELECT c.persona.id FROM Credenciales c WHERE c.usuario = :usuario")
+	Long idUsuarioAutenticado(@Param("usuario") String usuario);
+
+	Persona findByNombreContainingIgnoreCase(String nombre);
 
 }

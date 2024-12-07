@@ -51,14 +51,14 @@ public class FachadaPersonal {
     public void menuPersonal() {
         int opcion = 0;
         do {
-            System.out.println("------MENÚ DEL PERSONAL------");
-            System.out.println("Selecciona una opción:");
-            System.out.println("  ───────────────────────────────");
-            System.out.println("1. VER TODAS LAS PLANTAS.");
-            System.out.println("2. Gestión de ejemplares.");
-            System.out.println("3. Gestión de mensajes.");
-            System.out.println("4. CERRAR SESIÓN.");
-            System.out.println("  ───────────────────────────────");
+            System.out.println("\t\t------MENÚ DEL PERSONAL------");
+            System.out.println("\t\tSelecciona una opción:");
+            System.out.println("\t\t───────────────────────────────");
+            System.out.println("\t\t1. VER TODAS LAS PLANTAS.");
+            System.out.println("\t\t2. Gestión de ejemplares.");
+            System.out.println("\t\t3. Gestión de mensajes.");
+            System.out.println("\t\t4. CERRAR SESIÓN.");
+            System.out.println("\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 4) {
@@ -90,14 +90,14 @@ public class FachadaPersonal {
     public void menuPersonalEjemplares() {
         int opcion = 0;
         do {
-            System.out.println("Selecciona una opción:");
-            System.out.println("  ───────────────────────────────");
-            System.out.println("1. Registrar nuevo ejemplar.");
-            System.out.println("2. Filtrar ejemplares por tipo de planta.");
-            System.out.println("3. Ver mensajes de un ejemplar.");
-            System.out.println("4. Borrar un ejemplar.");
-            System.out.println("5. Volver al menú principal.");
-            System.out.println("  ───────────────────────────────");
+            System.out.println("\t\tSelecciona una opción:");
+            System.out.println("\t\t───────────────────────────────");
+            System.out.println("\t\t1. Registrar nuevo ejemplar.");
+            System.out.println("\t\t2. Filtrar ejemplares por tipo de planta.");
+            System.out.println("\t\t3. Ver mensajes de un ejemplar.");
+            System.out.println("\t\t4. Borrar un ejemplar.");
+            System.out.println("\t\t5. Volver al menú principal.");
+            System.out.println("\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 5) {
@@ -131,9 +131,9 @@ public class FachadaPersonal {
     public void menuPersonalMensajes() {
         int opcion = 0;
         do {
-            System.out.println("Selecciona una opción:");
-            System.out.println("  ───────────────────────────────");
-            System.out.println("1. Nuevo mensaje.");
+            System.out.println("\t\tSelecciona una opción:");
+            System.out.println("\t\t───────────────────────────────");
+            System.out.println("\t\t1. Nuevo mensaje.");
             System.out.println("2. Ver todos los mensajes.");
             System.out.println("3. Ver mensajes por persona.");
             System.out.println("4. Ver mensajes por rango de fechas.");

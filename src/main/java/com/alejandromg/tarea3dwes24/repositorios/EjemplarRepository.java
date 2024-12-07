@@ -13,17 +13,17 @@ import com.alejandromg.tarea3dwes24.modelo.Ejemplar;
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface EjemplarRepository extends JpaRepository <Ejemplar, Long>{
+public interface EjemplarRepository extends JpaRepository<Ejemplar, Long> {
 
-	 @Query("SELECT COUNT(e) FROM Ejemplar e")
-    long contarEjemplares();
+	@Query("SELECT COUNT(e) FROM Ejemplar e")
+	long contarEjemplares();
 
-	 @Query("SELECT e FROM Ejemplar e WHERE e.planta.codigo = :codigoPlanta")
-	 List<Ejemplar> ejemplaresPorTipoPlanta(@Param("codigoPlanta") String codigoPlanta);
+	@Query("SELECT e FROM Ejemplar e WHERE e.planta.codigo = :codigoPlanta")
+	List<Ejemplar> ejemplaresPorTipoPlanta(@Param("codigoPlanta") String codigoPlanta);
 
 	@Transactional
-    @Modifying
-    @Query("UPDATE Ejemplar e SET e.nombre = :nuevoNombre WHERE e.id = :idEjemplar")
-    int cambiarNombre(@Param("idEjemplar") Long idEjemplar, @Param("nuevoNombre") String nuevoNombre);
+	@Modifying
+	@Query("UPDATE Ejemplar e SET e.nombre = :nuevoNombre WHERE e.id = :idEjemplar")
+	int cambiarNombre(@Param("idEjemplar") Long idEjemplar, @Param("nuevoNombre") String nuevoNombre);
 
 }
