@@ -241,8 +241,10 @@ public class FachadaPersonal {
                     System.out.println("No hay ejemplares para la planta con código: " + codigo);
                 } else {
                     System.out.println("Ejemplares con el código " + codigo + ":");
+                    System.out.println();                   
                     for (Ejemplar e : ejemplares) {
                         System.out.println("ID: " + e.getId() + ", Nombre: " + e.getNombre());
+                        System.out.println();    
                     }
                 }
             } else {
@@ -262,8 +264,10 @@ public class FachadaPersonal {
                 System.out.println("No se encontraron mensajes para la persona: " + idPersona);
             } else {
                 System.out.println("Mensajes:");
+                System.out.println();
                 for (Mensaje m : mensajes) {
                     System.out.println(m);
+                    System.out.println();
                 }
             }
         } catch (InputMismatchException e) {
@@ -283,12 +287,14 @@ public class FachadaPersonal {
                 System.out.println("No se encontraron mensajes para la planta con código: " + codigo);
             } else {
                 System.out.println("Mensajes para la planta con el código " + codigo + ":");
+                System.out.println();
                 for (Mensaje m : mensajes) {
                     System.out.println(m);
+                    System.out.println();
                 }
             }
         } catch (Exception e) {
-            System.out.println("Se produjo un error al intentar obtener los mensajes: " + e.getMessage());
+            System.out.println("No se encontraron mensajes para esa planta");
         }
     }
 
@@ -296,10 +302,10 @@ public class FachadaPersonal {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime fechaInicio = null;
         LocalDateTime fechaFin = null;
-
         do {
             try {
-                System.out.print("Introduce la primera fecha y la hora con el formato: dd-MM-yyyy HH:mm ");
+                System.out.print("Introduce la primera fecha y la hora con el formato: dd-MM-yyyy HH:mm"
+                		+ "");
                 String fechaInicioIntro = in.nextLine();
                 fechaInicio = LocalDateTime.parse(fechaInicioIntro, formatter);
             } catch (DateTimeParseException e) {
@@ -324,8 +330,10 @@ public class FachadaPersonal {
             System.out.println("No se encontraron mensajes en el rango de fechas proporcionado.");
         } else {
             System.out.println("Mensajes encontrados:");
+            System.out.println();
             for (Mensaje m : mensajes) {
                 System.out.println(m);
+                System.out.println();
             }
         }
     }

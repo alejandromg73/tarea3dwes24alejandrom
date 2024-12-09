@@ -16,14 +16,14 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface PlantaRepository extends JpaRepository<Planta, Long> {
 	Optional<Planta> findById(Long id);
-
-	@Modifying
+	
 	@Transactional
+	@Modifying
 	@Query("UPDATE Planta p SET p.nombreComun = :nombreComun WHERE p.codigo = :codigo")
 	int actualizarNombreComun(@Param("codigo") String codigo, @Param("nombreComun") String nombreComun);
 
-	@Modifying
 	@Transactional
+	@Modifying
 	@Query("UPDATE Planta p SET p.nombreCientifico = :nombreCientifico WHERE p.codigo = :codigo")
 	int actualizarNombreCientifico(@Param("codigo") String codigo, @Param("nombreCientifico") String nombreCientifico);
 

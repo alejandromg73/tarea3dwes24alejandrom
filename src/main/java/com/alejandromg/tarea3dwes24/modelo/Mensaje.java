@@ -111,7 +111,7 @@ public class Mensaje implements Serializable {
 	public String toString() {
 		String ret = "";
 		ret += "Id de mensaje: " + this.id;
-		ret += "\nFecha y hora: " + this.fechaHora;
+		ret += "\nFecha: "+ this.fechaHora.getDayOfMonth() + "-" + this.getFechaHora().getMonthValue() + "-" + this.getFechaHora().getYear() + " Hora: " + this.getFechaHora().getHour() + ":" + this.getFechaHora().getMinute();
 		ret += "\nMensaje: " + this.mensaje;
 		ret += "\nEjemplar: " + this.ejemplar.getNombre();
 		ret += "\nPersona: " + this.persona.getNombre();
