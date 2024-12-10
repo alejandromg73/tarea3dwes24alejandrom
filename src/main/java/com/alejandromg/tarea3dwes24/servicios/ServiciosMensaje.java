@@ -17,34 +17,75 @@ public class ServiciosMensaje {
     @Autowired
     private MensajeRepository mensajeRepo;
 
+    /**
+     * Método para insertar un nuevo mensaje.
+     * 
+     * @param m Mensaje a insertar
+     */
     public void insertar(Mensaje m) {
         mensajeRepo.saveAndFlush(m);
     }
 
+    /**
+     * Método para ver los mensajes dentro de un rango de fechas concreto
+     * 
+     * @param primeraFecha la primera fecha
+     * @param segundaFecha la segunda fecha
+     * @return un ArrayList de mensajes
+     */
     public ArrayList<Mensaje> verMensajesRangoFechas(LocalDateTime primeraFecha, LocalDateTime segundaFecha) {
         List<Mensaje> mensajes = mensajeRepo.findMensajesBetweenFechas(primeraFecha, segundaFecha);
         return new ArrayList<>(mensajes);
     }
-
+    
+    /**
+     * Método para ver todos los mensajes de la base de datos
+     * 
+     * @return una colección de mensajes
+     */
     public Collection<Mensaje> verTodos() {
         return mensajeRepo.findAll();
     }
 
+    /**
+     * Método para ver los mensajes de una persona concreta
+     * 
+     * @param idPersona el id de esa persona
+     * @return un ArrayList de mensajes
+     */
     public ArrayList<Mensaje> verMensajesPorPersona(long idPersona) {
         List<Mensaje> mensajes = mensajeRepo.findMensajesByPersonaId(idPersona);
         return new ArrayList<>(mensajes);
     }
-
+    
+    /**
+     * Método para ver los mensajes según el código concreto de una planta
+     * 
+     * @param codigoPlanta El código de la planta
+     * @return un ArrayList de mensajes
+     */
     public ArrayList<Mensaje> verMensajesPorCodigoPlanta(String codigoPlanta) {
         List<Mensaje> mensajes = mensajeRepo.findMensajesByCodigoPlanta(codigoPlanta);
         return new ArrayList<>(mensajes);
     }
 
+    /**
+     * Método para ver los mensajes según el ejemplar
+     * 
+     * @param idEjemplar un id de un ejemplar
+     * @return un ArrayList de mensajes
+     */
     public ArrayList<Mensaje> verMensajesPorEjemplar(long idEjemplar) {
         List<Mensaje> mensajes = mensajeRepo.findMensajesByEjemplarId(idEjemplar);
         return new ArrayList<>(mensajes);
     }
 
+    /**
+     * Método para hacer las validaciones de un mensaje
+     * 
+     * @param mensaje Un mensaje
+     * @return si no se valida, false, si se valida, true
+     */
     public boolean validarMensaje(String mensaje) {
         if (mensaje == null || mensaje.trim().isEmpty()) {
             return false;

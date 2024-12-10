@@ -13,6 +13,10 @@ import com.alejandromg.tarea3dwes24.servicios.Controlador;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosCredenciales;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
 
+/**
+ * Utilizo las anotaciones @Lazy para que las inyecciones de las fachadas 
+ * solo se carguen cuando haga falta, y así Spring pueda manejarlas bien
+ */
 @Component
 public class FachadaInvitado {
 
@@ -39,14 +43,14 @@ public class FachadaInvitado {
     public void menuInvitado() {
         int opcion = 0;
         do {
-            System.out.println("\t\t------GESTIÓN DEL VIVERO------");
+            System.out.println("\t\t\t\t\t------GESTIÓN DEL VIVERO------");
             System.out.println();
-            System.out.println("\t\tSelecciona una opción: ");
-            System.out.println("\t\t───────────────────────────────");
-            System.out.println("\t\t1. VER TODAS LAS PLANTAS");
-            System.out.println("\t\t2. LOGUEARSE");
-            System.out.println("\t\t3. SALIR DEL PROGRAMA");
-            System.out.println("\t\t───────────────────────────────");
+            System.out.println("\t\t\t\t\tSelecciona una opción: ");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
+            System.out.println("\t\t\t\t\t1. VER TODAS LAS PLANTAS");
+            System.out.println("\t\t\t\t\t2. LOGUEARSE");
+            System.out.println("\t\t\t\t\t3. SALIR DEL PROGRAMA");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 switch (opcion) {
@@ -71,6 +75,10 @@ public class FachadaInvitado {
         } while (opcion != 3);
     }
 
+    /**
+     * Método para hacer login desde el menú de invitado, 
+     * ya sea con un perfil de personal, o con el perfil del administrador
+     */
     public void login() {
         in.nextLine();  
         System.out.print("Introduce usuario: ");
@@ -78,13 +86,14 @@ public class FachadaInvitado {
         System.out.print("Introduce contraseña: ");
         String contraseña = in.nextLine().trim();
         try {
-            boolean autenticar = servCred.autenticar(usuario, contraseña);  
+            boolean autenticar = servCred.autenticar(usuario, contraseña);//LLamo al método autenticar para comprobar que lo introducido corresponde con lo que hay en la base de datos
             if (autenticar) {
                 System.out.println("Has iniciado sesión como " + usuario);
                 controlador.setUsuarioAutenticado(usuario);
+                //En función del tipo de perfil del usuario, le redirijo a una fachada u otra (Admin o personal)
                 if ("admin".equalsIgnoreCase(usuario) && "admin".equalsIgnoreCase(contraseña)) {
                     System.out.println("Eres el usuario administrador");
-                    fachadaAdmin.menuAdmin(); 
+                    fachadaAdmin.menuAdmin();
                 } else {
                     System.out.println("Eres un usuario del personal del vivero");
                     fachadaPersonal.menuPersonal(); 
@@ -97,9 +106,13 @@ public class FachadaInvitado {
         }
     }
 
-
+    
+/**
+ * Método para listar todas las plantas de la base de datos.
+ * Las muestra por pantalla en orden alfabético
+ */
     public void verTodasPlantas() {
-        ArrayList<Planta> plantas = (ArrayList<Planta>) servPlanta.verTodas(); 
+        ArrayList<Planta> plantas = (ArrayList<Planta>) servPlanta.verTodas(); //Cargo en un ArrayList todas las plantas de la base de datos para mostrarlas una a una
         if (plantas == null || plantas.isEmpty()) {
             System.out.println("Lo siento, no hay plantas para mostrar en la base de datos");
             return;

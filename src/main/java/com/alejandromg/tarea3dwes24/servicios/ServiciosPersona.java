@@ -17,22 +17,47 @@ public class ServiciosPersona {
     @Autowired
     private PersonaRepository personaRepo;
 
+    /**
+     * Método para insertar una persona en la base de datos
+     * 
+     * @param pers Persona a insertar
+     */
     public void insertar(Persona pers) {
         personaRepo.saveAndFlush(pers);
     }
-
+    /**
+     * Método para listar todas las personas de la base de datos
+     * 
+     * @return Una colección de personas
+     */
     public Collection<Persona> verTodos() {
         return personaRepo.findAll();
     }
 
+    /**
+     * Método para validar si un email existe o no en la base de datos
+     * @param email El email que se quiere comprobar
+     * @return true si se ha validado, false si no
+     */
     public boolean emailExistente(String email) {
         return personaRepo.existsByEmail(email);
     }
 
+    /**
+     * Método para saber cual es el usuario está autenticado
+     * @param usuario Un usuario
+     * @return
+     */
     public long idUsuarioAutenticado(String usuario) {
         Long idPersona = personaRepo.idUsuarioAutenticado(usuario);
         return (idPersona != null) ? idPersona : -1;
     }
+
+    /**
+	 * Método para las validaciones de una persona
+	 * @param pers Una persona
+	 * @return false si no se ha validado, true si se ha validado
+	 */
     public boolean validarPersona(Persona pers) {
         if (pers == null) {
             return false;
@@ -51,10 +76,21 @@ public class ServiciosPersona {
         }
         return true;
     }
-
+    
+    /**
+     * Método para buscar una persona por nombre
+     * @param email El nombre de la persona que se quiere validar
+     * @return Un objeto de tipo persona
+     */
     public Persona buscarPorNombre(String nombre){
     	return personaRepo.findByNombreContainingIgnoreCase(nombre);
     }
+    
+    /**
+     * Método para borrar una persona de la base de datos
+     * @param id El id de la persona que se quiere eliminar
+     * @return false si no se ha eliminado, true si sí.
+     */
     @Transactional
     @Modifying
     public boolean borrarPersona(Long id) {

@@ -20,7 +20,10 @@ import com.alejandromg.tarea3dwes24.servicios.ServiciosEjemplar;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosMensaje;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPersona;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
-
+/**
+ * Utilizo las anotaciones @Lazy para que las inyecciones de las fachadas 
+ * solo se carguen cuando haga falta, y así Spring pueda manejarlas bien
+ */
 @Component
 public class FachadaAdmin {
 
@@ -56,15 +59,15 @@ public class FachadaAdmin {
     public void menuAdmin() {
         int opcion = 0;
         do {
-            System.out.println("------MENÚ DE ADMINISTRADOR------");
-            System.out.println("───────────────────────────────");
-            System.out.println("Selecciona una opción:");
-            System.out.println("1. Gestión de plantas");
-            System.out.println("2. Gestión de ejemplares");
-            System.out.println("3. Gestión de mensajes");
-            System.out.println("4. Gestión de personas");
-            System.out.println("5. CERRAR SESIÓN.");
-            System.out.println("───────────────────────────────");
+            System.out.println("\t\t\t\t\t------MENÚ DE ADMINISTRADOR------");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
+            System.out.println("\t\t\t\t\tSelecciona una opción:");
+            System.out.println("\t\t\t\t\t1. Gestión de plantas");
+            System.out.println("\t\t\t\t\t2. Gestión de ejemplares");
+            System.out.println("\t\t\t\t\t3. Gestión de mensajes");
+            System.out.println("\t\t\t\t\t4. Gestión de personas");
+            System.out.println("\t\t\t\t\t5. CERRAR SESIÓN.");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 5) {
@@ -99,13 +102,13 @@ public class FachadaAdmin {
     public void menuAdminPlantas() {
         int opcion = 0;
         do {
-            System.out.println("Selecciona una opción:");
-            System.out.println("  ───────────────────────────────");
-            System.out.println("1. Ver plantas");
-            System.out.println("2. Crear nueva planta");
-            System.out.println("3. Modificar datos de una planta");
-            System.out.println("4. Volver al menú principal");
-            System.out.println("  ───────────────────────────────");
+            System.out.println("\t\t\t\t\tSelecciona una opción:");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
+            System.out.println("\t\t\t\t\t1. Ver plantas");
+            System.out.println("\t\t\t\t\t2. Crear nueva planta");
+            System.out.println("\t\t\t\t\t3. Modificar datos de una planta");
+            System.out.println("\t\t\t\t\t4. Volver al menú principal");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 4) {
@@ -134,12 +137,12 @@ public class FachadaAdmin {
     public void menuAdminModificarPlantas() {
         int opcion = 0;
         do {
-            System.out.println("Selecciona una opción:");
-            System.out.println("  ───────────────────────────────");
-            System.out.println("1. Modificar nombre común");
-            System.out.println("2. Modificar nombre científico");
-            System.out.println("3. Volver al menú de plantas");
-            System.out.println("  ───────────────────────────────");
+            System.out.println("\t\t\t\t\tSelecciona una opción:");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
+            System.out.println("\t\t\t\t\t1. Modificar nombre común");
+            System.out.println("\t\t\t\t\t2. Modificar nombre científico");
+            System.out.println("\t\t\t\t\t3. Volver al menú de plantas");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 3) {
@@ -165,14 +168,14 @@ public class FachadaAdmin {
     public void menuAdminEjemplares() {
         int opcion = 0;
         do {
-            System.out.println("Selecciona una opción:");
-            System.out.println("  ───────────────────────────────");
-            System.out.println("1. Registrar nuevo ejemplar");
-            System.out.println("2. Filtrar ejemplares por tipo de planta");
-            System.out.println("3. Ver mensajes de un ejemplar");
-            System.out.println("4. Borrar un ejemplar");
-            System.out.println("5. Volver al menú principal");
-            System.out.println("  ───────────────────────────────");
+            System.out.println("\t\t\t\t\tSelecciona una opción:");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
+            System.out.println("\t\t\t\t\t1. Registrar nuevo ejemplar");
+            System.out.println("\t\t\t\t\t2. Filtrar ejemplares por tipo de planta");
+            System.out.println("\t\t\t\t\t3. Ver mensajes de un ejemplar");
+            System.out.println("\t\t\t\t\t4. Borrar un ejemplar");
+            System.out.println("\t\t\t\t\t5. Volver al menú principal");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 5) {
@@ -203,13 +206,13 @@ public class FachadaAdmin {
     public void menuAdminPersonas() {
 		int opcion = 0;
 		do {
-			System.out.println("Selecciona una opción:");
-			System.out.println("  ───────────────────────────────");
-			System.out.println("1. Registrar nueva persona");
-			System.out.println("2. Ver todas las personas");
-			System.out.println("3. Borrar una persona");
-			System.out.println("4. Volver al menú principal");
-			System.out.println("  ───────────────────────────────");
+			System.out.println("\t\t\t\t\tSelecciona una opción:");
+			System.out.println("\t\t\t\t\t───────────────────────────────");
+			System.out.println("\t\t\t\t\t1. Registrar nueva persona");
+			System.out.println("\t\t\t\t\t2. Ver todas las personas");
+			System.out.println("\t\t\t\t\t3. Borrar una persona");
+			System.out.println("\t\t\t\t\t4. Volver al menú principal");
+			System.out.println("\t\t\t\t\t───────────────────────────────");
 			try {
 				opcion = in.nextInt();
 				if (opcion < 1 || opcion > 4) {
@@ -237,12 +240,12 @@ public class FachadaAdmin {
     public void menuAdminMensajes() {
         int opcion = 0;
         do {
-            System.out.println("Selecciona una opción:");
-            System.out.println("  ───────────────────────────────");
-            System.out.println("1. Nuevo mensaje");
-            System.out.println("2. Ver mensajes");
-            System.out.println("3. Volver al menú principal");
-            System.out.println("  ───────────────────────────────");
+            System.out.println("\t\t\t\t\tSelecciona una opción:");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
+            System.out.println("\t\t\t\t\t1. Nuevo mensaje");
+            System.out.println("\t\t\t\t\t2. Ver mensajes");
+            System.out.println("\t\t\t\t\t3. Volver al menú principal");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 3) {
@@ -268,14 +271,14 @@ public class FachadaAdmin {
     public void menuAdminVerMensajes() {
         int opcion = 0;
         do {
-            System.out.println("Selecciona una opción:");
-            System.out.println("  ───────────────────────────────");
-            System.out.println("1. Ver todos los mensajes");
-            System.out.println("2. Ver mensajes por persona");
-            System.out.println("3. Ver mensajes por rango de fechas");
-            System.out.println("4. Ver mensajes por tipo de planta");
-            System.out.println("5. Volver al menú de mensajes");
-            System.out.println("  ───────────────────────────────");
+            System.out.println("\t\t\t\t\tSelecciona una opción:");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
+            System.out.println("\t\t\t\t\t1. Ver todos los mensajes");
+            System.out.println("\t\t\t\t\t2. Ver mensajes por persona");
+            System.out.println("\t\t\t\t\t3. Ver mensajes por rango de fechas");
+            System.out.println("\t\t\t\t\t4. Ver mensajes por tipo de planta");
+            System.out.println("\t\t\t\t\t5. Volver al menú de mensajes");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 5) {
@@ -303,7 +306,6 @@ public class FachadaAdmin {
             }
         } while (opcion != 5);
     }
-
 
     /**
 	 * Método para crear una nueva planta, con sus validaciones y controlando las
@@ -354,7 +356,11 @@ public class FachadaAdmin {
 
 		return p;
 	}
-
+	
+	/**
+	 * Método para crear un nuevo ejemplar, con sus validaciones y posibles excepciones que puedan surgir
+	 * 
+	 */
 	public Ejemplar nuevoEjemplar() {
 	    in.nextLine();
 	    Ejemplar e = null;
@@ -377,10 +383,10 @@ public class FachadaAdmin {
 	            Planta p = servPlanta.buscarPorCodigo(codigoPlanta);
 	            e = new Ejemplar();
 	            e.setPlanta(p);
-	            e.setNombre(codigoPlanta);
+	            e.setNombre(codigoPlanta); //Le pongo este nombre momentaneo para poder insertarlo en la base de datos
 	            servEjemplar.insertar(e);
-	            e.setNombre(e.getPlanta().getCodigo() + "_" + e.getId());
-	            servEjemplar.cambiarNombre(e.getId(), e.getNombre());
+	            e.setNombre(e.getPlanta().getCodigo() + "_" + e.getId()); //Le añado el nombre verdadero al ejemplar
+	            servEjemplar.cambiarNombre(e.getId(), e.getNombre());//Lo persisto en la base de datos con su nombre de verdad
 	            System.out.println("Ejemplar insertado con ID: " + e.getId());
 	            String mensajeTexto = "Añadido el ejemplar " + e.getNombre();
 	            LocalDateTime fechaHora = LocalDateTime.now();
@@ -389,7 +395,7 @@ public class FachadaAdmin {
 	            if (persona == null) {
 	                System.out.println("Error: No se ha encontrado la persona autenticada");
 	            } else {
-	                m = new Mensaje(fechaHora, mensajeTexto, persona, e);
+	                m = new Mensaje(fechaHora, mensajeTexto, persona, e); //Inserto un mensaje de creación del ejemplar
 	                servMensaje.insertar(m);
 	                System.out.println("Mensaje de creación del ejemplar añadido");
 	            }
@@ -404,7 +410,7 @@ public class FachadaAdmin {
 
 
 	/**
-	 * Método para crear una nueva planta, con sus validaciones y controlando las
+	 * Método para crear una nueva persona, con sus validaciones y controlando las
 	 * excepciones que pueden surgir
 	 * 
 	 */
@@ -477,9 +483,12 @@ public class FachadaAdmin {
 	    return pers;
 	}
 
-
+	/**
+	 * Método para listar todas las personas por pantalla
+	 * 
+	 */
 	public void verTodasPersonas() {
-		ArrayList<Persona> personas = (ArrayList<Persona>) servPersona.verTodos();
+		ArrayList<Persona> personas = (ArrayList<Persona>) servPersona.verTodos(); //Cargo todas las personas en un ArrayList para sacarlas por pantalla
 		if (personas == null || personas.isEmpty()) {
 			System.out.println("Lo siento, no hay personas para mostrar en la base de datos");
 			return;
@@ -492,8 +501,12 @@ public class FachadaAdmin {
 		}
 	}
 
+	/**
+	 * Método para listar todos los mensajesd por pantalla
+	 * 
+	 */
 	public void verTodosMensajes() {
-		ArrayList<Mensaje> mensajes = (ArrayList<Mensaje>) servMensaje.verTodos();
+		ArrayList<Mensaje> mensajes = (ArrayList<Mensaje>) servMensaje.verTodos(); //Cargo todos los mensajes en un ArrayList para sacarlas por pantalla
 		if (mensajes == null || mensajes.isEmpty()) {
 			System.out.println("Lo siento, no hay mensajes para mostrar en la base de datos");
 			return;
@@ -505,7 +518,12 @@ public class FachadaAdmin {
 			System.out.println();
 		}
 	}
-
+	
+	/**
+	 * Método para modificar el nombre común de un tipo de planta, 
+	 * pasándole el código de esa planta de la cual se quiere cambiar
+	 * 
+	 */
 	public void modificarNombreComun() {
 	    in.nextLine();
 	    String codigo = "";
@@ -526,10 +544,9 @@ public class FachadaAdmin {
 	    System.out.print("Introduce el nuevo nombre común de la planta: ");
 	    String nuevoNombreComun = in.nextLine().trim();
 	    try {
-	        boolean actualizado = servPlanta.actualizarNombreComun(codigo, nuevoNombreComun);
+	        boolean actualizado = servPlanta.actualizarNombreComun(codigo, nuevoNombreComun); //Llamo al método para actualizar el nombre común
 	        if (actualizado) {
-	            System.out.println("El nombre común de la planta con código " + codigo
-	                    + " ha sido actualizado, ahora el nombre es: " + nuevoNombreComun);
+	            System.out.println("El nombre común de la planta con código " + codigo + " ha sido actualizado, ahora el nombre es: " + nuevoNombreComun);
 	        } else {
 	            System.out.println("Error al intentar actualizar el nombre común");
 	        }
@@ -538,7 +555,11 @@ public class FachadaAdmin {
 	    }
 	}
 
-
+	/**
+	 * Método para modificar el nombre científico de un tipo de planta, 
+	 * pasándole el código de esa planta de la cual se quiere cambiar
+	 * 
+	 */
 	public void modificarNombreCientifico() {
 	    in.nextLine();
 	    String codigo = "";
@@ -559,10 +580,9 @@ public class FachadaAdmin {
 	    System.out.print("Introduce el nuevo nombre científico de la planta: ");
 	    String nuevoNombreCientifico = in.nextLine().trim();
 	    try {
-	        boolean actualizado = servPlanta.actualizarNombreCientifico(codigo, nuevoNombreCientifico);
+	        boolean actualizado = servPlanta.actualizarNombreCientifico(codigo, nuevoNombreCientifico); //Llamo al método para actualizar el nombre científico
 	        if (actualizado) {
-	            System.out.println("El nombre científico de la planta con código " + codigo
-	                    + " ha sido actualizado, ahora el nombre es: " + nuevoNombreCientifico);
+	            System.out.println("El nombre científico de la planta con código " + codigo + " ha sido actualizado, ahora el nombre es: " + nuevoNombreCientifico);
 	        } else {
 	            System.out.println("Error al intentar actualizar el nombre científico");
 	        }
@@ -571,17 +591,20 @@ public class FachadaAdmin {
 	    }
 	}
 
-
+	/**
+	 * Método para ver los mensajes de un ejemplar,
+	 * a través de su id
+	 * 
+	 */
 	public void verMensajesEjemplar() {
 		System.out.print("Introduce el id de un ejemplar para ver sus mensajes: ");
 		try {
 			long idEjemplar = in.nextLong();
 			if (idEjemplar < 1 || idEjemplar > servEjemplar.contarEjemplares()) {
-				System.out.println("Debes introducir un número entre el 1 y "
-						+ servEjemplar.contarEjemplares());
+				System.out.println("Debes introducir un número entre el 1 y " + servEjemplar.contarEjemplares()); //Llamo al método de contar ejemplares para que establezca el número máximo que el usuario puede introducir
 				return;
 			}
-			ArrayList<Mensaje> mensajes = servMensaje.verMensajesPorEjemplar(idEjemplar);
+			ArrayList<Mensaje> mensajes = servMensaje.verMensajesPorEjemplar(idEjemplar); //Cargo todos los mensajes en un ArrayList de mensajes 
 			if (mensajes.isEmpty()) {
 				System.out.println("No se encontraron mensajes para el ejemplar");
 			} else {
@@ -597,6 +620,14 @@ public class FachadaAdmin {
 		}
 	}
 	
+	/**
+	 * Método para borrar una persona 
+	 * introduciendo su id
+	 * 
+	 * Este método no se pedía, pero he decidirlo incluirlo como mejora, ya que así resulta más fácil para manipular el programa,
+	 * el usuario administrador puede eliminar personas de la base de datos, eliminando también sus credenciales gracias al cascade
+	 * 
+	 */
 	public void borrarPersona() {
         System.out.print("Introduce el id de la persona a eliminar: ");
         try {
@@ -612,7 +643,7 @@ public class FachadaAdmin {
             System.out.println("Error: Debes introducir un id válido");
             in.nextLine();
         } catch (Exception e) {
-            System.out.println("Error durante la eliminación de la persona: " + e.getMessage());
+            System.out.println("Error durante el borrado de la persona: " + e.getMessage());
         }
     }
 

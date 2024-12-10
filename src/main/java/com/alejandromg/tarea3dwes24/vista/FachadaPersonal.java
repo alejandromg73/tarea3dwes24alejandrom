@@ -19,7 +19,10 @@ import com.alejandromg.tarea3dwes24.servicios.ServiciosEjemplar;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosMensaje;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPersona;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
-
+/**
+ * Utilizo las anotaciones @Lazy para que las inyecciones de las fachadas 
+ * solo se carguen cuando haga falta, y así Spring pueda manejarlas bien
+ */
 @Component
 public class FachadaPersonal {
 
@@ -51,14 +54,14 @@ public class FachadaPersonal {
     public void menuPersonal() {
         int opcion = 0;
         do {
-            System.out.println("\t\t------MENÚ DEL PERSONAL------");
-            System.out.println("\t\tSelecciona una opción:");
-            System.out.println("\t\t───────────────────────────────");
-            System.out.println("\t\t1. VER TODAS LAS PLANTAS.");
-            System.out.println("\t\t2. Gestión de ejemplares.");
-            System.out.println("\t\t3. Gestión de mensajes.");
-            System.out.println("\t\t4. CERRAR SESIÓN.");
-            System.out.println("\t\t───────────────────────────────");
+            System.out.println("\t\t\t\t\t------MENÚ DEL PERSONAL------");
+            System.out.println("\t\t\t\t\tSelecciona una opción:");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
+            System.out.println("\t\t\t\t\t1. VER TODAS LAS PLANTAS.");
+            System.out.println("\t\t\t\t\t2. Gestión de ejemplares.");
+            System.out.println("\t\t\t\t\t3. Gestión de mensajes.");
+            System.out.println("\t\t\t\t\t4. CERRAR SESIÓN.");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 4) {
@@ -90,14 +93,14 @@ public class FachadaPersonal {
     public void menuPersonalEjemplares() {
         int opcion = 0;
         do {
-            System.out.println("\t\tSelecciona una opción:");
-            System.out.println("\t\t───────────────────────────────");
-            System.out.println("\t\t1. Registrar nuevo ejemplar.");
-            System.out.println("\t\t2. Filtrar ejemplares por tipo de planta.");
-            System.out.println("\t\t3. Ver mensajes de un ejemplar.");
-            System.out.println("\t\t4. Borrar un ejemplar.");
-            System.out.println("\t\t5. Volver al menú principal.");
-            System.out.println("\t\t───────────────────────────────");
+            System.out.println("\t\t\t\t\tSelecciona una opción:");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
+            System.out.println("\t\t\t\t\t1. Registrar nuevo ejemplar.");
+            System.out.println("\t\t\t\t\t2. Filtrar ejemplares por tipo de planta.");
+            System.out.println("\t\t\t\t\t3. Ver mensajes de un ejemplar.");
+            System.out.println("\t\t\t\t\t4. Borrar un ejemplar.");
+            System.out.println("\t\t\t\t\t5. Volver al menú principal.");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 5) {
@@ -131,15 +134,15 @@ public class FachadaPersonal {
     public void menuPersonalMensajes() {
         int opcion = 0;
         do {
-            System.out.println("\t\tSelecciona una opción:");
-            System.out.println("\t\t───────────────────────────────");
-            System.out.println("\t\t1. Nuevo mensaje.");
-            System.out.println("2. Ver todos los mensajes.");
-            System.out.println("3. Ver mensajes por persona.");
-            System.out.println("4. Ver mensajes por rango de fechas.");
-            System.out.println("5. Ver mensajes por tipo de planta.");
-            System.out.println("6. Volver al menú principal.");
-            System.out.println("  ───────────────────────────────");
+            System.out.println("\t\t\t\t\tSelecciona una opción:");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
+            System.out.println("\t\t\t\t\t1. Nuevo mensaje.");
+            System.out.println("\t\t\t\t\t2. Ver todos los mensajes.");
+            System.out.println("\t\t\t\t\t3. Ver mensajes por persona.");
+            System.out.println("\t\t\t\t\t4. Ver mensajes por rango de fechas.");
+            System.out.println("\t\t\t\t\t5. Ver mensajes por tipo de planta.");
+            System.out.println("\t\t\t\t\t6. Volver al menú principal.");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
                 if (opcion < 1 || opcion > 6) {
@@ -173,29 +176,40 @@ public class FachadaPersonal {
         } while (opcion != 6);
     }
 
+    /**
+	 * Método para ver listar todos los ejemplares por pantalla
+	 * 
+	 */
     public void verTodosEjemplares() {
-        ArrayList<Ejemplar> ejemplares = (ArrayList<Ejemplar>) serviciosEjemplar.verTodos();
+        ArrayList<Ejemplar> ejemplares = (ArrayList<Ejemplar>) serviciosEjemplar.verTodos(); //Cargo todos los ejemplares en un ArrayList para mostrarlos por pantalla
         if (ejemplares == null || ejemplares.isEmpty()) {
             System.out.println("Lo siento, no hay ejemplares para mostrar en la base de datos.");
             return;
         }
+        System.out.println();
         System.out.println("Todos los ejemplares: ");
         for (Ejemplar e : ejemplares) {
             System.out.println(e);
+            System.out.println();
         }
     }
-
+    
+    /**
+	 * Método para crear un nuevo mensaje, con sus validaciones y controlando las
+	 * excepciones que pueden surgir
+	 * 
+	 */
     public void nuevoMensaje() {
         boolean correcto = false;
         do {
             try {
-                serviciosEjemplar.verTodos();
+                serviciosEjemplar.verTodos(); //Muestro todos los ejemplares para que el usuario elija a cuál quiere ponerle un meensaje
                 if (serviciosEjemplar.verTodos() == null || serviciosEjemplar.verTodos().isEmpty()) {
                     System.out.println("No hay ejemplares para mostrar.");
                     return; 
                 }
                 System.out.println();
-                System.out.print("Introduce el id del ejemplar para ponerle un mensaje: ");
+                System.out.print("Introduce el id del ejemplar para ponerle un mensaje: "); //Le pido el id
                 int idEjemplar = in.nextInt();
                 in.nextLine();
                 Ejemplar ejemplar = serviciosEjemplar.buscarPorID((long) idEjemplar);
@@ -208,11 +222,11 @@ public class FachadaPersonal {
                         System.out.println("El mensaje no puede estar vacío.");
                     } else if (serviciosMensaje.validarMensaje(mensajeTexto)) {
                         String usuarioAutenticado = controlador.getUsuarioAutenticado();
-                        Persona p = serviciosPersona.buscarPorNombre(usuarioAutenticado);
+                        Persona p = serviciosPersona.buscarPorNombre(usuarioAutenticado); //Al campo persona del mensaje, se le añade el usuarioAutenticado
                         if (p == null) {
                             System.out.println("Error: No se ha encontrado la persona autenticada");
                         } else {
-                            Mensaje nuevoMensaje = new Mensaje(LocalDateTime.now(), mensajeTexto, p, ejemplar);
+                            Mensaje nuevoMensaje = new Mensaje(LocalDateTime.now(), mensajeTexto, p, ejemplar); //Inserto el mensaje con todos los campos
                             serviciosMensaje.insertar(nuevoMensaje);
                             System.out.println("Mensaje añadido.");
                             correcto = true;
@@ -229,14 +243,18 @@ public class FachadaPersonal {
     }
 
 
-
+    /**
+	 * Método para filtrar los ejemplares
+	 * según el código de la planta
+	 * 
+	 */
     public void filtrarEjemplaresPorCodigoPlanta() {
         try {
             System.out.print("Introduce el código de la planta para ver los ejemplares: ");
             String codigo = in.nextLine().trim().toUpperCase();
             boolean existe = serviciosPlanta.codigoExistente(codigo);
             if (existe) {
-                ArrayList<Ejemplar> ejemplares = serviciosEjemplar.ejemplaresPorTipoPlanta(codigo);
+                ArrayList<Ejemplar> ejemplares = serviciosEjemplar.ejemplaresPorTipoPlanta(codigo); //Cargo en un ArrayList todos los ejemplares con ese código de planta 
                 if (ejemplares.isEmpty()) {
                     System.out.println("No hay ejemplares para la planta con código: " + codigo);
                 } else {
@@ -255,11 +273,16 @@ public class FachadaPersonal {
         }
     }
 
+    /**
+	 * Método para listar todos los mensajes 
+	 * de una persona concreta por pantalla
+	 * 
+	 */
     public void verMensajesPersona() {
         System.out.print("Introduce el id de una persona para ver sus mensajes: ");
         try {
             long idPersona = in.nextLong();
-            ArrayList<Mensaje> mensajes = serviciosMensaje.verMensajesPorPersona(idPersona);
+            ArrayList<Mensaje> mensajes = serviciosMensaje.verMensajesPorPersona(idPersona); //Cargo en un ArrayList todos los mensajes de una persona para listarlos por pantalla
             if (mensajes.isEmpty()) {
                 System.out.println("No se encontraron mensajes para la persona: " + idPersona);
             } else {
@@ -278,11 +301,15 @@ public class FachadaPersonal {
         }
     }
 
+    /**
+	 * Método para listar los mensajes de un tipo de planta concreto
+	 * 
+	 */
     public void verMensajeTipoPlanta() {
         System.out.print("Introduce el código de una planta: ");
         String codigo = in.nextLine().trim().toUpperCase();
         try {
-            ArrayList<Mensaje> mensajes = serviciosMensaje.verMensajesPorCodigoPlanta(codigo);
+            ArrayList<Mensaje> mensajes = serviciosMensaje.verMensajesPorCodigoPlanta(codigo); //Cargo en un ArrayList todos los mensajes de ese código concreto
             if (mensajes.isEmpty()) {
                 System.out.println("No se encontraron mensajes para la planta con código: " + codigo);
             } else {
@@ -298,10 +325,16 @@ public class FachadaPersonal {
         }
     }
 
+    /**
+	 * Método para listar los mensajes 
+	 * dentro de un rango concreto de fechas introducido por el usuario
+	 * 
+	 */
     public void verMensajeFechas() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime fechaInicio = null;
         LocalDateTime fechaFin = null;
+      //Pido ambas fechas
         do {
             try {
                 System.out.print("Introduce la primera fecha y la hora con el formato: dd-MM-yyyy HH:mm"
@@ -325,7 +358,7 @@ public class FachadaPersonal {
                 System.out.println("Formato de fecha no válido.");
             }
         } while (fechaFin == null);
-        ArrayList<Mensaje> mensajes = serviciosMensaje.verMensajesRangoFechas(fechaInicio, fechaFin);
+        ArrayList<Mensaje> mensajes = serviciosMensaje.verMensajesRangoFechas(fechaInicio, fechaFin); //Cargo a un ArrayList todos los mensajes que hay entre esas dos fechas y los listo por pantalla
         if (mensajes.isEmpty()) {
             System.out.println("No se encontraron mensajes en el rango de fechas proporcionado.");
         } else {
@@ -337,7 +370,19 @@ public class FachadaPersonal {
             }
         }
     }
+    
+    /**
+	 * Método para borrar un ejemplar de la base de datos,
+	 * introduciendo el id del ejemplar que se quiere borrar
+	 * 
+	 * Este método no se pedía, pero he decidirlo incluirlo como mejora, ya que así resulta más fácil para manipular el programa
+	 * 
+	 */
     public void borrarEjemplar() {
+    	ArrayList<Ejemplar> ejemplares = (ArrayList<Ejemplar>) serviciosEjemplar.verTodos(); //Cargo a un ArrayList todos los ejemplares
+    	for(Ejemplar e: ejemplares) {
+    		System.out.println(e);
+    	}
         System.out.print("Introduce el id del ejemplar que quieres borrar: ");
         try {
             Long idEjemplar = in.nextLong();

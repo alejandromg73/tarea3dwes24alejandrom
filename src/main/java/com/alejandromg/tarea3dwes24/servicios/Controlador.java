@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class Controlador {
-
+	//Con esta variable usuarioAutenticado, tengo almacenado en todo momento el usuario que está autenticado en el sistema
     private String usuarioAutenticado;
 
     public void setUsuarioAutenticado(String usuario) {
@@ -20,7 +20,8 @@ public class Controlador {
     
     /**
 	 * Este método sirve para cerrar sesión, ya que pone la variable de usuario
-	 * autenticado a nulo
+	 * autenticado a nulo.
+	 * Esta opción la añado en el menú para que el usuario pueda cerrar su sesión
 	 */
 	public void cerrarSesion() {
 		this.usuarioAutenticado = null;

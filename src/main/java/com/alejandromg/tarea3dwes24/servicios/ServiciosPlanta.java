@@ -149,6 +149,12 @@ public class ServiciosPlanta {
         return true;
     }
     
+    /**
+     * Método para buscar una planta por su código.
+     * 
+     * @param codigo a validar
+     * @return si existe o no esa planta con ese código
+     */
     public Planta buscarPorCodigo(String codigo) {
         Optional<Planta> plantaOptional = plantaRepo.findByCodigo(codigo);
         return plantaOptional.orElse(null);
