@@ -20,7 +20,7 @@ import com.alejandromg.tarea3dwes24.servicios.ServiciosEjemplar;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosMensaje;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPersona;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
-/**
+/*
  * Utilizo las anotaciones @Lazy para que las inyecciones de las fachadas 
  * solo se carguen cuando haga falta, y así Spring pueda manejarlas bien
  */
@@ -358,7 +358,8 @@ public class FachadaAdmin {
 	}
 	
 	/**
-	 * Método para crear un nuevo ejemplar, con sus validaciones y posibles excepciones que puedan surgir
+	 * Método para crear un nuevo ejemplar, con sus validaciones
+	 * y posibles excepciones que puedan surgir
 	 * 
 	 */
 	public Ejemplar nuevoEjemplar() {
@@ -446,10 +447,10 @@ public class FachadaAdmin {
 	        } while (!emailValido);
 	        do {
 	            System.out.print("Usuario: ");
-	            usuario = in.nextLine().trim();
+	            usuario = in.nextLine();
 	            if (usuario.equalsIgnoreCase("ADMIN")) {
 	                System.out.println("El usuario admin ya está ocupado.");
-	            } else if (servCredenciales.usuarioExistente(usuario) || usuario.length() < 3) {
+	            } else if (servCredenciales.usuarioExistente(usuario) || usuario.length() < 3 || usuario.contains(" ")) {
 	                System.out.println("El usuario que has introducido ya está registrado o no cumple con los requisitos mínimos");
 	            } else {
 	                usuarioValido = true;
@@ -502,7 +503,7 @@ public class FachadaAdmin {
 	}
 
 	/**
-	 * Método para listar todos los mensajesd por pantalla
+	 * Método para listar todos los mensajes por pantalla
 	 * 
 	 */
 	public void verTodosMensajes() {

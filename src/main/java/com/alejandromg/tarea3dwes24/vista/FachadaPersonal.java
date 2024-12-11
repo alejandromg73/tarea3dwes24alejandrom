@@ -19,7 +19,7 @@ import com.alejandromg.tarea3dwes24.servicios.ServiciosEjemplar;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosMensaje;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPersona;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
-/**
+/*
  * Utilizo las anotaciones @Lazy para que las inyecciones de las fachadas 
  * solo se carguen cuando haga falta, y así Spring pueda manejarlas bien
  */
@@ -261,7 +261,7 @@ public class FachadaPersonal {
                     System.out.println("Ejemplares con el código " + codigo + ":");
                     System.out.println();                   
                     for (Ejemplar e : ejemplares) {
-                        System.out.println("ID: " + e.getId() + ", Nombre: " + e.getNombre());
+                        System.out.println(e);
                         System.out.println();    
                     }
                 }
@@ -372,10 +372,10 @@ public class FachadaPersonal {
     }
     
     /**
-	 * Método para borrar un ejemplar de la base de datos,
-	 * introduciendo el id del ejemplar que se quiere borrar
+	 * Método para borrar un ejemplar de la base de datos
 	 * 
-	 * Este método no se pedía, pero he decidirlo incluirlo como mejora, ya que así resulta más fácil para manipular el programa
+	 * Este método no se pedía, pero he decidirlo incluirlo como mejora, ya que así resulta más fácil para manipular el programa,
+	 * el usuario administrador y los perfiles de personal pueden eliminar ejemplares de la base de datos
 	 * 
 	 */
     public void borrarEjemplar() {

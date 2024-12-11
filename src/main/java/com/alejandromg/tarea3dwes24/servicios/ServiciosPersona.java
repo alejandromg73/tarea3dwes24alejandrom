@@ -62,7 +62,7 @@ public class ServiciosPersona {
         if (pers == null) {
             return false;
         }
-        if (pers.getNombre() == null || pers.getNombre().isEmpty()) {
+        if (pers.getNombre() == null || pers.getNombre().isEmpty()) { 
             return false;
         }
         if (pers.getNombre().length() < 3 || pers.getNombre().length() > 20) {

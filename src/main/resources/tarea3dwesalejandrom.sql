@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-11-2024 a las 09:34:02
+-- Tiempo de generación: 10-12-2024 a las 13:49:47
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -41,7 +41,9 @@ CREATE TABLE `credenciales` (
 --
 
 INSERT INTO `credenciales` (`id`, `password`, `usuario`, `id_persona`) VALUES
-(1, 'admin', 'admin', 0);
+(1, 'admin', 'admin', 0),
+(2, 'alejandromg.', 'alejandromg', 3),
+(3, 'luisdbb.', 'luis', 4);
 
 -- --------------------------------------------------------
 
@@ -54,6 +56,26 @@ CREATE TABLE `ejemplares` (
   `nombre` varchar(255) NOT NULL,
   `idplanta` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ejemplares`
+--
+
+INSERT INTO `ejemplares` (`id`, `nombre`, `idplanta`) VALUES
+(2, 'ROSA_2', 1),
+(3, 'ROSA_3', 1),
+(4, 'HIEDRA_4', 6),
+(5, 'HELECHO_5', 10),
+(6, 'LAVANDA_6', 9),
+(7, 'ALOE_7', 3),
+(8, 'PINO_8', 4),
+(9, 'PINO_9', 4),
+(10, 'LIRIO_10', 8),
+(11, 'CINTA_11', 5),
+(12, 'MARGARITA_12', 2),
+(13, 'MARGARITA_13', 2),
+(14, 'MARGARITA_14', 2),
+(15, 'HELECHO_15', 10);
 
 -- --------------------------------------------------------
 
@@ -68,6 +90,26 @@ CREATE TABLE `mensajes` (
   `id_ejemplar` bigint(20) NOT NULL,
   `id_persona` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `mensajes`
+--
+
+INSERT INTO `mensajes` (`id`, `fecha_hora`, `mensaje`, `id_ejemplar`, `id_persona`) VALUES
+(1, '2024-12-10 12:32:05.000000', 'Añadido el ejemplar ROSA_2', 2, 0),
+(2, '2024-12-10 12:32:54.000000', 'Trabajos de mantenimiento del ejemplar', 2, 0),
+(3, '2024-12-10 13:44:38.000000', 'Añadido el ejemplar ROSA_3', 3, 0),
+(4, '2024-12-10 13:44:43.000000', 'Añadido el ejemplar HIEDRA_4', 4, 0),
+(5, '2024-12-10 13:44:54.000000', 'Añadido el ejemplar HELECHO_5', 5, 0),
+(6, '2024-12-10 13:44:59.000000', 'Añadido el ejemplar LAVANDA_6', 6, 0),
+(7, '2024-12-10 13:45:13.000000', 'Añadido el ejemplar ALOE_7', 7, 0),
+(8, '2024-12-10 13:45:16.000000', 'Añadido el ejemplar PINO_8', 8, 0),
+(9, '2024-12-10 13:45:19.000000', 'Añadido el ejemplar PINO_9', 9, 0),
+(10, '2024-12-10 13:45:35.000000', 'Añadido el ejemplar LIRIO_10', 10, 0),
+(11, '2024-12-10 13:45:37.000000', 'Añadido el ejemplar CINTA_11', 11, 0),
+(12, '2024-12-10 13:45:41.000000', 'Añadido el ejemplar MARGARITA_12', 12, 0),
+(13, '2024-12-10 13:45:44.000000', 'Añadido el ejemplar MARGARITA_13', 13, 0),
+(14, '2024-12-10 13:45:47.000000', 'Añadido el ejemplar MARGARITA_14', 14, 0);
 
 -- --------------------------------------------------------
 
@@ -86,7 +128,9 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`id`, `email`, `nombre`) VALUES
-(0, 'admin@admin.es', 'admin');
+(0, 'admin@admin.es', 'admin'),
+(3, 'alejandromg73@educastur.es', 'Alejandro'),
+(4, 'luis@educastur.es', 'Luis');
 
 -- --------------------------------------------------------
 
@@ -100,6 +144,21 @@ CREATE TABLE `plantas` (
   `nombre_cientifico` varchar(255) DEFAULT NULL,
   `nombre_comun` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `plantas`
+--
+
+INSERT INTO `plantas` (`id`, `codigo`, `nombre_cientifico`, `nombre_comun`) VALUES
+(1, 'ROSA', 'Rosa Rosae', 'Rosa'),
+(2, 'MARGARITA', 'Bellis perennis', 'Margarita'),
+(3, 'ALOE', 'Aloe barbadensis', 'Aloe Vera'),
+(4, 'PINO', 'Pinus', 'Pino'),
+(5, 'CINTA', 'Chlorophytum comosum', 'Cinta'),
+(6, 'HIEDRA', 'Hedera', 'Hiedra'),
+(8, 'LIRIO', 'Lirium', 'Lirio'),
+(9, 'LAVANDA', 'Lavandula', 'Lavanda'),
+(10, 'HELECHO', 'Pteridium aquilinum', 'Helecho');
 
 --
 -- Índices para tablas volcadas
@@ -150,31 +209,31 @@ ALTER TABLE `plantas`
 -- AUTO_INCREMENT de la tabla `credenciales`
 --
 ALTER TABLE `credenciales`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `ejemplares`
 --
 ALTER TABLE `ejemplares`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `plantas`
 --
 ALTER TABLE `plantas`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas

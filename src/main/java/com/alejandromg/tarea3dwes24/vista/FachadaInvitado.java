@@ -13,7 +13,7 @@ import com.alejandromg.tarea3dwes24.servicios.Controlador;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosCredenciales;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
 
-/**
+/*
  * Utilizo las anotaciones @Lazy para que las inyecciones de las fachadas 
  * solo se carguen cuando haga falta, y así Spring pueda manejarlas bien
  */
@@ -89,13 +89,15 @@ public class FachadaInvitado {
             boolean autenticar = servCred.autenticar(usuario, contraseña);//LLamo al método autenticar para comprobar que lo introducido corresponde con lo que hay en la base de datos
             if (autenticar) {
                 System.out.println("Has iniciado sesión como " + usuario);
-                controlador.setUsuarioAutenticado(usuario);
+                controlador.setUsuarioAutenticado(usuario);//Guardo el usuario que inicia sesión
                 //En función del tipo de perfil del usuario, le redirijo a una fachada u otra (Admin o personal)
                 if ("admin".equalsIgnoreCase(usuario) && "admin".equalsIgnoreCase(contraseña)) {
                     System.out.println("Eres el usuario administrador");
+                    controlador.setPerfil("Admin");//Guardo el perfil del usuario que inicia sesión, en función de si es el administrador o es personal
                     fachadaAdmin.menuAdmin();
                 } else {
                     System.out.println("Eres un usuario del personal del vivero");
+                    controlador.setPerfil("Personal");
                     fachadaPersonal.menuPersonal(); 
                 }
             } else {

@@ -80,8 +80,8 @@ public class ServiciosEjemplar {
      * @return una colección de ejemplares
      */
     public ArrayList<Ejemplar> ejemplaresPorTipoPlanta(String codigo) {
-        List<Ejemplar> ejemplares = ejemplarRepo.ejemplaresPorTipoPlanta(codigo);
-        return new ArrayList<>(ejemplares);
+    	ArrayList<Ejemplar> ejemplares = (ArrayList<Ejemplar>) ejemplarRepo.ejemplaresPorTipoPlanta(codigo);
+        return (ArrayList<Ejemplar>) ejemplares;
     }
 
     /**
