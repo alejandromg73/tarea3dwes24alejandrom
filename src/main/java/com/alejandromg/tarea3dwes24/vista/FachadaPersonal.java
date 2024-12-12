@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import com.alejandromg.tarea3dwes24.modelo.Ejemplar;
 import com.alejandromg.tarea3dwes24.modelo.Mensaje;
 import com.alejandromg.tarea3dwes24.modelo.Persona;
+import com.alejandromg.tarea3dwes24.modelo.Planta;
 import com.alejandromg.tarea3dwes24.servicios.Controlador;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosEjemplar;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosMensaje;
@@ -249,6 +250,16 @@ public class FachadaPersonal {
 	 * 
 	 */
     public void filtrarEjemplaresPorCodigoPlanta() {
+    	 ArrayList<Planta> plantas = (ArrayList<Planta>) serviciosPlanta.verTodas(); //Cargo en un ArrayList todas las plantas de la base de datos para mostrarlas una a una
+         if (plantas == null || plantas.isEmpty()) {
+             System.out.println("Lo siento, no hay plantas para mostrar en la base de datos");
+         }
+         System.out.println("Todas las plantas: ");
+         System.out.println();
+         for (Planta p : plantas) {
+             System.out.println(p);
+             System.out.println();
+         }
         try {
             System.out.print("Introduce el código de la planta para ver los ejemplares: ");
             String codigo = in.nextLine().trim().toUpperCase();
@@ -279,6 +290,16 @@ public class FachadaPersonal {
 	 * 
 	 */
     public void verMensajesPersona() {
+    	ArrayList<Persona> personas = (ArrayList<Persona>) serviciosPersona.verTodos(); //Cargo en un ArrayList todas las plantas de la base de datos para mostrarlas una a una
+        if (personas == null || personas.isEmpty()) {
+            System.out.println("Lo siento, no hay personas para mostrar en la base de datos");
+        }
+        System.out.println("Todas las personas: ");
+        System.out.println();
+        for (Persona pers : personas) {
+            System.out.println(pers);
+            System.out.println();
+        }
         System.out.print("Introduce el id de una persona para ver sus mensajes: ");
         try {
             long idPersona = in.nextLong();
@@ -306,6 +327,16 @@ public class FachadaPersonal {
 	 * 
 	 */
     public void verMensajeTipoPlanta() {
+    	 ArrayList<Planta> plantas = (ArrayList<Planta>) serviciosPlanta.verTodas(); //Cargo en un ArrayList todas las plantas de la base de datos para mostrarlas una a una
+         if (plantas == null || plantas.isEmpty()) {
+             System.out.println("Lo siento, no hay plantas para mostrar en la base de datos");
+         }
+         System.out.println("Todas las plantas: ");
+         System.out.println();
+         for (Planta p : plantas) {
+             System.out.println(p);
+             System.out.println();
+         }
         System.out.print("Introduce el código de una planta: ");
         String codigo = in.nextLine().trim().toUpperCase();
         try {
@@ -379,10 +410,8 @@ public class FachadaPersonal {
 	 * 
 	 */
     public void borrarEjemplar() {
-    	ArrayList<Ejemplar> ejemplares = (ArrayList<Ejemplar>) serviciosEjemplar.verTodos(); //Cargo a un ArrayList todos los ejemplares
-    	for(Ejemplar e: ejemplares) {
-    		System.out.println(e);
-    	}
+    	verTodosEjemplares();
+    	System.out.println();
         System.out.print("Introduce el id del ejemplar que quieres borrar: ");
         try {
             Long idEjemplar = in.nextLong();

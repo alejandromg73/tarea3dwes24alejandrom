@@ -367,6 +367,16 @@ public class FachadaAdmin {
 	    Ejemplar e = null;
 	    Mensaje m = null;
 	    boolean correcto = false;
+	    ArrayList<Planta> plantas = (ArrayList<Planta>) servPlanta.verTodas(); //Cargo en un ArrayList todas las plantas de la base de datos para mostrarlas una a una
+        if (plantas == null || plantas.isEmpty()) {
+            System.out.println("Lo siento, no hay plantas para mostrar en la base de datos");
+        }
+        System.out.println("Todas las plantas: ");
+        System.out.println();
+        for (Planta p : plantas) {
+            System.out.println(p);
+            System.out.println();
+        }
 	    do {
 	        try {
 	            System.out.print("Código de la planta del ejemplar: ");
@@ -529,6 +539,17 @@ public class FachadaAdmin {
 	    in.nextLine();
 	    String codigo = "";
 	    boolean valido = false;
+	    ArrayList<Planta> plantas = (ArrayList<Planta>) servPlanta.verTodas(); //Cargo en un ArrayList todas las plantas de la base de datos para mostrarlas una a una
+        if (plantas == null || plantas.isEmpty()) {
+            System.out.println("Lo siento, no hay plantas para mostrar en la base de datos");
+            return;
+        }
+        System.out.println("Todas las plantas: ");
+        System.out.println();
+        for (Planta p : plantas) {
+            System.out.println(p);
+            System.out.println();
+        }
 	    do {
 	        System.out.print("Introduce el código de la planta de la que quieres modificar el nombre común: ");
 	        codigo = in.nextLine().trim().toUpperCase();
@@ -565,6 +586,17 @@ public class FachadaAdmin {
 	    in.nextLine();
 	    String codigo = "";
 	    boolean valido = false;
+	    ArrayList<Planta> plantas = (ArrayList<Planta>) servPlanta.verTodas(); //Cargo en un ArrayList todas las plantas de la base de datos para mostrarlas una a una
+        if (plantas == null || plantas.isEmpty()) {
+            System.out.println("Lo siento, no hay plantas para mostrar en la base de datos");
+            return;
+        }
+        System.out.println("Todas las plantas: ");
+        System.out.println();
+        for (Planta p : plantas) {
+            System.out.println(p);
+            System.out.println();
+        }
 	    do {
 	        System.out.print("Introduce el código de la planta de la que quieres modificar el nombre científico: ");
 	        codigo = in.nextLine().trim().toUpperCase();
@@ -598,6 +630,10 @@ public class FachadaAdmin {
 	 * 
 	 */
 	public void verMensajesEjemplar() {
+		ArrayList <Ejemplar> ejemplares = (ArrayList<Ejemplar>) servEjemplar.verTodos();
+		System.out.println("Todos los ejemplares: ");
+		System.out.println();
+		System.out.println(ejemplares);
 		System.out.print("Introduce el id de un ejemplar para ver sus mensajes: ");
 		try {
 			long idEjemplar = in.nextLong();
@@ -626,10 +662,12 @@ public class FachadaAdmin {
 	 * introduciendo su id
 	 * 
 	 * Este método no se pedía, pero he decidirlo incluirlo como mejora, ya que así resulta más fácil para manipular el programa,
-	 * el usuario administrador puede eliminar personas de la base de datos, eliminando también sus credenciales gracias al cascade
+	 * el usuario administrador puede eliminar personas de la base de datos, eliminando también sus credenciales gracias al borrado en cascada
 	 * 
 	 */
 	public void borrarPersona() {
+		verTodasPersonas();
+		System.out.println();
         System.out.print("Introduce el id de la persona a eliminar: ");
         try {
             Long idPersona = in.nextLong();
