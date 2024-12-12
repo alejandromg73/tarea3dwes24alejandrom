@@ -15,6 +15,6 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	@Query("SELECT c.persona.id FROM Credenciales c WHERE c.usuario = :usuario")
 	Long idUsuarioAutenticado(@Param("usuario") String usuario);
 
-	Persona findByNombreContainingIgnoreCase(String nombre);
+	Persona findByNombre(String nombre);
 
 }

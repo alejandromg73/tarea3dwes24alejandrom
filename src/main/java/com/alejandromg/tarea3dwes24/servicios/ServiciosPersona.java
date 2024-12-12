@@ -83,7 +83,7 @@ public class ServiciosPersona {
      * @return Un objeto de tipo persona
      */
     public Persona buscarPorNombre(String nombre){
-    	return personaRepo.findByNombreContainingIgnoreCase(nombre);
+    	return personaRepo.findByNombre(nombre);
     }
     
     /**

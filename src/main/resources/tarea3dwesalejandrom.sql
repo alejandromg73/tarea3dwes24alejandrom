@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 10-12-2024 a las 13:49:47
+-- Servidor: 127.0.0.1:3307
+-- Tiempo de generación: 12-12-2024 a las 21:26:12
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -42,8 +42,8 @@ CREATE TABLE `credenciales` (
 
 INSERT INTO `credenciales` (`id`, `password`, `usuario`, `id_persona`) VALUES
 (1, 'admin', 'admin', 0),
-(2, 'alejandromg.', 'alejandromg', 3),
-(3, 'luisdbb.', 'luis', 4);
+(4, 'Alejandro.', 'Alejandro', 5),
+(5, 'luisdbb.', 'Luisdbb', 6);
 
 -- --------------------------------------------------------
 
@@ -62,6 +62,7 @@ CREATE TABLE `ejemplares` (
 --
 
 INSERT INTO `ejemplares` (`id`, `nombre`, `idplanta`) VALUES
+(1, 'ROSA_1', 1),
 (2, 'ROSA_2', 1),
 (3, 'ROSA_3', 1),
 (4, 'HIEDRA_4', 6),
@@ -129,8 +130,8 @@ CREATE TABLE `personas` (
 
 INSERT INTO `personas` (`id`, `email`, `nombre`) VALUES
 (0, 'admin@admin.es', 'admin'),
-(3, 'alejandromg73@educastur.es', 'Alejandro'),
-(4, 'luis@educastur.es', 'Luis');
+(5, 'Alejandromg73@educastur.es', 'Alejandro'),
+(6, 'luisdbb@educastur.es', 'Luisdbb');
 
 -- --------------------------------------------------------
 
@@ -209,7 +210,7 @@ ALTER TABLE `plantas`
 -- AUTO_INCREMENT de la tabla `credenciales`
 --
 ALTER TABLE `credenciales`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `ejemplares`
@@ -227,7 +228,7 @@ ALTER TABLE `mensajes`
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `plantas`

@@ -204,11 +204,7 @@ public class FachadaPersonal {
         boolean correcto = false;
         do {
             try {
-                serviciosEjemplar.verTodos(); //Muestro todos los ejemplares para que el usuario elija a cuál quiere ponerle un meensaje
-                if (serviciosEjemplar.verTodos() == null || serviciosEjemplar.verTodos().isEmpty()) {
-                    System.out.println("No hay ejemplares para mostrar.");
-                    return; 
-                }
+            	verTodosEjemplares();
                 System.out.println();
                 System.out.print("Introduce el id del ejemplar para ponerle un mensaje: "); //Le pido el id
                 int idEjemplar = in.nextInt();
@@ -290,7 +286,7 @@ public class FachadaPersonal {
 	 * 
 	 */
     public void verMensajesPersona() {
-    	ArrayList<Persona> personas = (ArrayList<Persona>) serviciosPersona.verTodos(); //Cargo en un ArrayList todas las plantas de la base de datos para mostrarlas una a una
+    	ArrayList<Persona> personas = (ArrayList<Persona>) serviciosPersona.verTodos(); //Cargo en un ArrayList todas las personas de la base de datos para mostrarlas una a una
         if (personas == null || personas.isEmpty()) {
             System.out.println("Lo siento, no hay personas para mostrar en la base de datos");
         }

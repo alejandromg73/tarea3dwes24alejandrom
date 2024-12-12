@@ -25,7 +25,7 @@ public class ServiciosCredenciales {
      */
 	 public boolean autenticar(String usuario, String password) {
 	    return credencialesRepo.existsByUsuarioAndPassword(usuario, password);
-	    }
+	 }
 
     /**
      * Método para comprobar si el usuario ya existe.
@@ -63,4 +63,7 @@ public class ServiciosCredenciales {
     public boolean validarContraseña(String contraseña) {
         return contraseña.matches("^(?=.*[.,])[A-Za-z0-9.,]{8,}$");
     }
+	public Persona buscarPersonaPorUsuario(String usuario) {
+		return credencialesRepo.findPersonaByUsuario(usuario);
+	}
 }

@@ -26,6 +26,12 @@ public interface PlantaRepository extends JpaRepository<Planta, Long> {
 	@Modifying
 	@Query("UPDATE Planta p SET p.nombreCientifico = :nombreCientifico WHERE p.codigo = :codigo")
 	int actualizarNombreCientifico(@Param("codigo") String codigo, @Param("nombreCientifico") String nombreCientifico);
+	
+	@Transactional
+	@Modifying
+	@Query("DELETE FROM Planta p WHERE p.codigo = :codigo")
+	int borrarPlantaPorCodigo(@Param("codigo") String codigo);
+
 
 	Optional<Planta> findByCodigo(String codigo);
 

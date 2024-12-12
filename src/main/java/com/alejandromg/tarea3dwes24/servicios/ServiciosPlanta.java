@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import com.alejandromg.tarea3dwes24.modelo.Planta;
@@ -158,6 +159,27 @@ public class ServiciosPlanta {
     public Planta buscarPorCodigo(String codigo) {
         Optional<Planta> plantaOptional = plantaRepo.findByCodigo(codigo);
         return plantaOptional.orElse(null);
+    }
+    
+    /**
+     * Método para borrar una planta de la base de datos
+     * @param codigo El codigo de la planta que se quiere eliminar
+     * @return false si no se ha eliminado, true si sí.
+     */
+    @Transactional
+    @Modifying
+    public boolean borrarPlanta(String codigo) {
+        try {
+            if (plantaRepo.existsByCodigo(codigo)) {
+                plantaRepo.borrarPlantaPorCodigo(codigo);
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            System.out.println("Error al eliminar la planta: " + e.getMessage());
+            return false;
+        }
     }
 }
 

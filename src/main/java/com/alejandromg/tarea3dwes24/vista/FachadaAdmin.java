@@ -107,11 +107,12 @@ public class FachadaAdmin {
             System.out.println("\t\t\t\t\t1. Ver plantas");
             System.out.println("\t\t\t\t\t2. Crear nueva planta");
             System.out.println("\t\t\t\t\t3. Modificar datos de una planta");
-            System.out.println("\t\t\t\t\t4. Volver al menú principal");
+            System.out.println("\t\t\t\t\t4. Borrar una planta");
+            System.out.println("\t\t\t\t\t5. Volver al menú principal");
             System.out.println("\t\t\t\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
-                if (opcion < 1 || opcion > 4) {
+                if (opcion < 1 || opcion > 5) {
                     System.out.println("Opción incorrecta");
                     continue;
                 }
@@ -125,13 +126,16 @@ public class FachadaAdmin {
                     case 3:
                         menuAdminModificarPlantas();
                         break;
+                    case 4:
+                    	borrarPlanta();
+                    	break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Debes ingresar un númer.");
+                System.out.println("Debes ingresar un número");
                 in.nextLine();
                 opcion = 0;
             }
-        } while (opcion != 4);
+        } while (opcion != 5);
     }
 
     public void menuAdminModificarPlantas() {
@@ -402,7 +406,7 @@ public class FachadaAdmin {
 	            String mensajeTexto = "Añadido el ejemplar " + e.getNombre();
 	            LocalDateTime fechaHora = LocalDateTime.now();
 	            String usuarioAutenticado = controlador.getUsuarioAutenticado();
-	            Persona persona = servPersona.buscarPorNombre(usuarioAutenticado);
+	            Persona persona = servCredenciales.buscarPersonaPorUsuario(usuarioAutenticado);
 	            if (persona == null) {
 	                System.out.println("Error: No se ha encontrado la persona autenticada");
 	            } else {
@@ -517,7 +521,7 @@ public class FachadaAdmin {
 	 * 
 	 */
 	public void verTodosMensajes() {
-		ArrayList<Mensaje> mensajes = (ArrayList<Mensaje>) servMensaje.verTodos(); //Cargo todos los mensajes en un ArrayList para sacarlas por pantalla
+		ArrayList<Mensaje> mensajes = (ArrayList<Mensaje>) servMensaje.verTodos(); //Cargo todos los mensajes en un ArrayList para sacarlos por pantalla
 		if (mensajes == null || mensajes.isEmpty()) {
 			System.out.println("Lo siento, no hay mensajes para mostrar en la base de datos");
 			return;
@@ -630,10 +634,13 @@ public class FachadaAdmin {
 	 * 
 	 */
 	public void verMensajesEjemplar() {
-		ArrayList <Ejemplar> ejemplares = (ArrayList<Ejemplar>) servEjemplar.verTodos();
+		ArrayList <Ejemplar> ejemplares = (ArrayList<Ejemplar>) servEjemplar.verTodos(); //Cargo todos los ejemplares en un ArrayList
 		System.out.println("Todos los ejemplares: ");
 		System.out.println();
-		System.out.println(ejemplares);
+		for(Ejemplar e: ejemplares) {
+			System.out.println(e);
+			System.out.println();
+		}
 		System.out.print("Introduce el id de un ejemplar para ver sus mensajes: ");
 		try {
 			long idEjemplar = in.nextLong();
@@ -660,7 +667,6 @@ public class FachadaAdmin {
 	/**
 	 * Método para borrar una persona 
 	 * introduciendo su id
-	 * 
 	 * Este método no se pedía, pero he decidirlo incluirlo como mejora, ya que así resulta más fácil para manipular el programa,
 	 * el usuario administrador puede eliminar personas de la base de datos, eliminando también sus credenciales gracias al borrado en cascada
 	 * 
@@ -685,5 +691,41 @@ public class FachadaAdmin {
             System.out.println("Error durante el borrado de la persona: " + e.getMessage());
         }
     }
+	
+	/**
+	 * Método para borrar una planta introduciendo su codigo
+	 * Este método no se pedía, pero he decidirlo incluirlo como mejora, ya que así resulta más fácil para manipular el programa sin tener que
+	 * entrar a la base de datos cada vez que quiero borrar algo,
+	 * el usuario administrador puede eliminar plantas de la base de datos, eliminando también sus ejemplares gracias al borrado en cascada
+	 * 
+	 */
+	public void borrarPlanta() {
+		in.nextLine();
+	    ArrayList<Planta> plantas = (ArrayList<Planta>) servPlanta.verTodas();
+	    if (plantas == null || plantas.isEmpty()) {
+	        System.out.println("Lo siento, no hay plantas para mostrar en la base de datos");
+	        return;
+	    }
+	    System.out.println("Todas las plantas:");
+	    for (Planta p : plantas) {
+	        System.out.println(p);
+	        System.out.println();
+	    }
+	    System.out.print("Introduce el código de la planta que quieres borrar: ");
+	    try {
+	        String codigo = in.nextLine().trim().toUpperCase();
+	        boolean borrada = servPlanta.borrarPlanta(codigo);
+	        if (borrada) {
+	            System.out.println("Planta con código " + codigo + " borrada");
+	        } else {
+	            System.out.println("No se encontró ninguna planta con el código: " + codigo);
+	        }
+	    } catch (InputMismatchException e) {
+	        System.out.println("Error: Debes introducir un código válido");
+	    } catch (Exception e) {
+	        System.out.println("Error durante el borrado: " + e.getMessage());
+	    }
+	}
+	
 
 }

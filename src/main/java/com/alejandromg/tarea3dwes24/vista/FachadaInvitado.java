@@ -86,19 +86,18 @@ public class FachadaInvitado {
         System.out.print("Introduce contraseña: ");
         String contraseña = in.nextLine().trim();
         try {
-            boolean autenticar = servCred.autenticar(usuario, contraseña);//LLamo al método autenticar para comprobar que lo introducido corresponde con lo que hay en la base de datos
+            boolean autenticar = servCred.autenticar(usuario, contraseña);//Verifica si usuario y contraseña coinciden con alguno de la base de datos
             if (autenticar) {
                 System.out.println("Has iniciado sesión como " + usuario);
-                controlador.setUsuarioAutenticado(usuario);//Guardo el usuario que inicia sesión
-                //En función del tipo de perfil del usuario, le redirijo a una fachada u otra (Admin o personal)
-                if ("admin".equalsIgnoreCase(usuario) && "admin".equalsIgnoreCase(contraseña)) {
+                controlador.setUsuarioAutenticado(usuario);//Guarda el nombre del usuario autenticado
+                if ("admin".equalsIgnoreCase(usuario)) {
                     System.out.println("Eres el usuario administrador");
-                    controlador.setPerfil("Admin");//Guardo el perfil del usuario que inicia sesión, en función de si es el administrador o es personal
+                    controlador.setPerfil("Admin"); //Guarda el perfil como Admin
                     fachadaAdmin.menuAdmin();
                 } else {
                     System.out.println("Eres un usuario del personal del vivero");
-                    controlador.setPerfil("Personal");
-                    fachadaPersonal.menuPersonal(); 
+                    controlador.setPerfil("Personal");//Guarda el perfil como Personal
+                    fachadaPersonal.menuPersonal();
                 }
             } else {
                 System.out.println("Usuario o contraseña incorrectos.");
