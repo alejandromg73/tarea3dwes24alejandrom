@@ -66,4 +66,8 @@ public class ServiciosCredenciales {
 	public Persona buscarPersonaPorUsuario(String usuario) {
 		return credencialesRepo.findPersonaByUsuario(usuario);
 	}
+	
+	public int cambiarContraseña (String usuario, String contraseña) {
+		return credencialesRepo.cambiarContraseña(usuario, contraseña);
+	}
 }

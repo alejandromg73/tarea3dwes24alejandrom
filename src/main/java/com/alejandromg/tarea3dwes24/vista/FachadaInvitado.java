@@ -4,13 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.alejandromg.tarea3dwes24.modelo.Planta;
 import com.alejandromg.tarea3dwes24.servicios.Controlador;
+import com.alejandromg.tarea3dwes24.servicios.PerfilUsuario;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosCredenciales;
+import com.alejandromg.tarea3dwes24.servicios.ServiciosPersona;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
 
 /*
@@ -20,6 +23,8 @@ import com.alejandromg.tarea3dwes24.servicios.ServiciosPlanta;
 @Component
 public class FachadaInvitado {
 
+	@Autowired
+	private ServiciosPersona servPersona;
     @Autowired
     private ServiciosCredenciales servCred;
 
@@ -77,35 +82,41 @@ public class FachadaInvitado {
 
     /**
      * Método para hacer login desde el menú de invitado, 
-     * ya sea con un perfil de personal, o con el perfil del administrador
+     * pudiendo iniciar sesión como administrador o como un usuario de personal
      */
     public void login() {
-        in.nextLine();  
-        System.out.print("Introduce usuario: ");
-        String usuario = in.nextLine().trim();
-        System.out.print("Introduce contraseña: ");
-        String contraseña = in.nextLine().trim();
-        try {
-            boolean autenticar = servCred.autenticar(usuario, contraseña);//Verifica si usuario y contraseña coinciden con alguno de la base de datos
-            if (autenticar) {
-                System.out.println("Has iniciado sesión como " + usuario);
-                controlador.setUsuarioAutenticado(usuario);//Guarda el nombre del usuario autenticado
-                if ("admin".equalsIgnoreCase(usuario)) {
-                    System.out.println("Eres el usuario administrador");
-                    controlador.setPerfil("Admin"); //Guarda el perfil como Admin
-                    fachadaAdmin.menuAdmin();
-                } else {
-                    System.out.println("Eres un usuario del personal del vivero");
-                    controlador.setPerfil("Personal");//Guarda el perfil como Personal
-                    fachadaPersonal.menuPersonal();
-                }
-            } else {
-                System.out.println("Usuario o contraseña incorrectos.");
-            }
-        } catch (Exception e) {
-            System.out.println("No se ha podido iniciar sesión: " + e.getMessage());
-        }
-    }
+	    in.nextLine(); 
+	    System.out.print("Introduce usuario: ");
+	    String usuario = in.nextLine().trim();
+	    System.out.print("Introduce contraseña: ");
+	    String contraseña = in.nextLine().trim();
+	    try {
+	        boolean autenticar = servCred.autenticar(usuario, contraseña);
+	        if (autenticar) {
+	            System.out.println("Has iniciado sesión como: " + usuario);
+	            long id = servPersona.IdUsuarioAutenticado(usuario);
+	            PerfilUsuario perfil;
+	            if ("admin".equalsIgnoreCase(usuario)) {
+	                perfil = PerfilUsuario.ADMIN;
+	            } else {
+	                perfil = PerfilUsuario.PERSONAL;
+	            }
+	            controlador.iniciarSesion(id, usuario, perfil, LocalDateTime.now());
+	            if (perfil == PerfilUsuario.ADMIN) {
+	                System.out.println("Eres el usuario administrador");
+	                fachadaAdmin.menuAdmin();
+	            } else {
+	                System.out.println("Eres un usuario del personal del vivero");
+	                fachadaPersonal.menuPersonal();
+	            }
+	        } else {
+	            System.out.println("Usuario o contraseña incorrectos");
+	        }
+	    } catch (Exception e) {
+	        System.out.println("No se ha podido iniciar sesión: " + e.getMessage());
+	    }
+	}
+
 
     
 /**

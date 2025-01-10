@@ -1,12 +1,14 @@
 package com.alejandromg.tarea3dwes24.servicios;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import com.alejandromg.tarea3dwes24.modelo.Persona;
+import com.alejandromg.tarea3dwes24.repositorios.CredencialesRepository;
 import com.alejandromg.tarea3dwes24.repositorios.PersonaRepository;
 
 import jakarta.transaction.Transactional;
@@ -16,6 +18,8 @@ public class ServiciosPersona {
 
     @Autowired
     private PersonaRepository personaRepo;
+    @Autowired
+    private CredencialesRepository credRepo;
 
     /**
      * Método para insertar una persona en la base de datos
@@ -48,10 +52,10 @@ public class ServiciosPersona {
      * @param usuario Un usuario
      * @return
      */
-    public long idUsuarioAutenticado(String usuario) {
-        Long idPersona = personaRepo.idUsuarioAutenticado(usuario);
+    public long IdUsuarioAutenticado(String usuario) {
+		Long idPersona = personaRepo.idUsuarioAutenticado(usuario);
         return (idPersona != null) ? idPersona : -1;
-    }
+	}
 
     /**
 	 * Método para las validaciones de una persona
@@ -106,4 +110,13 @@ public class ServiciosPersona {
             return false;
         }
     }
+	public Optional<Persona> buscarPorId(long idUsuario) {
+		return personaRepo.findById(idUsuario);
+	}
+	
+	public Persona buscarPersonaPorUsuario(String usuario) {
+	    Persona persona = credRepo.findPersonaByUsuario(usuario);
+	    return persona;
+	}
+	
 }

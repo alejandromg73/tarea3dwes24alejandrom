@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Optional;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import com.alejandromg.tarea3dwes24.modelo.Mensaje;
 import com.alejandromg.tarea3dwes24.modelo.Persona;
 import com.alejandromg.tarea3dwes24.modelo.Planta;
 import com.alejandromg.tarea3dwes24.servicios.Controlador;
+import com.alejandromg.tarea3dwes24.servicios.ServiciosCredenciales;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosEjemplar;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosMensaje;
 import com.alejandromg.tarea3dwes24.servicios.ServiciosPersona;
@@ -42,6 +44,9 @@ public class FachadaPersonal {
 
     @Autowired
     private ServiciosPlanta serviciosPlanta;
+    
+    @Autowired
+    private ServiciosCredenciales serviciosCredenciales;
 
     @Autowired
     @Lazy
@@ -61,11 +66,12 @@ public class FachadaPersonal {
             System.out.println("\t\t\t\t\t1. VER TODAS LAS PLANTAS.");
             System.out.println("\t\t\t\t\t2. Gestión de ejemplares.");
             System.out.println("\t\t\t\t\t3. Gestión de mensajes.");
-            System.out.println("\t\t\t\t\t4. CERRAR SESIÓN.");
+            System.out.println("\t\t\t\t\t4. MI PERFIL.     (Tarea 3B)");
+            System.out.println("\t\t\t\t\t5. CERRAR SESIÓN.");
             System.out.println("\t\t\t\t\t───────────────────────────────");
             try {
                 opcion = in.nextInt();
-                if (opcion < 1 || opcion > 4) {
+                if (opcion < 1 || opcion > 5) {
                     System.out.println("Opción incorrecta.");
                     continue;
                 }
@@ -80,6 +86,9 @@ public class FachadaPersonal {
                         menuPersonalMensajes();
                         break;
                     case 4:
+                    	menuMiPerfil();
+                    	break;
+                    case 5:
                         controlador.cerrarSesion();
                         return;
                 }
@@ -88,7 +97,7 @@ public class FachadaPersonal {
                 in.nextLine();
                 opcion = 0;
             }
-        } while (opcion != 4);
+        } while (opcion != 5);
     }
 
     public void menuPersonalEjemplares() {
@@ -161,10 +170,10 @@ public class FachadaPersonal {
                         verMensajesPersona();
                         break;
                     case 4:
-                        verMensajeFechas();
+                        verMensajesFechas();
                         break;
                     case 5:
-                        verMensajeTipoPlanta();
+                        verMensajesTipoPlanta();
                         break;
                     case 6:
                         return;
@@ -175,6 +184,39 @@ public class FachadaPersonal {
                 opcion = 0;
             }
         } while (opcion != 6);
+    }
+    
+    public void menuMiPerfil() {
+    	int opcion = 0;
+        do {
+            System.out.println("\t\t\t\t\tSelecciona una opción:");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
+            System.out.println("\t\t\t\t\t1. Consultar mi perfil.");
+            System.out.println("\t\t\t\t\t2. Cambiar contraseña.");
+            System.out.println("\t\t\t\t\t3. Volver al menú principal.");
+            System.out.println("\t\t\t\t\t───────────────────────────────");
+            try {
+                opcion = in.nextInt();
+                if (opcion < 1 || opcion > 3) {
+                    System.out.println("Opción incorrecta.");
+                    continue;
+                }
+                switch (opcion) {
+                    case 1:
+                        miPerfil();
+                        break;
+                    case 2:
+                        cambiarContraseña();
+                        break;
+                    case 3:
+                        return;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Debes ingresar un número.");
+                in.nextLine();
+                opcion = 0;
+            }
+        } while (opcion != 3);
     }
 
     /**
@@ -246,6 +288,7 @@ public class FachadaPersonal {
 	 * 
 	 */
     public void filtrarEjemplaresPorCodigoPlanta() {
+    	in.nextLine();
     	 ArrayList<Planta> plantas = (ArrayList<Planta>) serviciosPlanta.verTodas(); //Cargo en un ArrayList todas las plantas de la base de datos para mostrarlas una a una
          if (plantas == null || plantas.isEmpty()) {
              System.out.println("Lo siento, no hay plantas para mostrar en la base de datos");
@@ -322,7 +365,8 @@ public class FachadaPersonal {
 	 * Método para listar los mensajes de un tipo de planta concreto
 	 * 
 	 */
-    public void verMensajeTipoPlanta() {
+    public void verMensajesTipoPlanta() {
+    	in.nextLine();
     	 ArrayList<Planta> plantas = (ArrayList<Planta>) serviciosPlanta.verTodas(); //Cargo en un ArrayList todas las plantas de la base de datos para mostrarlas una a una
          if (plantas == null || plantas.isEmpty()) {
              System.out.println("Lo siento, no hay plantas para mostrar en la base de datos");
@@ -357,7 +401,8 @@ public class FachadaPersonal {
 	 * dentro de un rango concreto de fechas introducido por el usuario
 	 * 
 	 */
-    public void verMensajeFechas() {
+    public void verMensajesFechas() {
+    	in.nextLine();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         LocalDateTime fechaInicio = null;
         LocalDateTime fechaFin = null;
@@ -425,4 +470,77 @@ public class FachadaPersonal {
             System.out.println("Error durante el borrado del ejemplar: " + e.getMessage());
         }
     }
+    
+    /**
+	 * Método para que un usuario auténticado de tipo personal pueda ver sus datos una vez logueado, así como su id, nombre, usuario, correo
+	 * y el número de mensajes introducidos en el programa
+	 * 
+	 * Este método no se pedía, pero ya que ahora he establecido el sistema de gestión de la sesión de forma correcta y puedo hacer cosas
+	 * cosas como estas más fácilmente que de la otra manera, pues me parece interesane añadirlo,
+	 * para que cuando se están haciendo varias operaciones con un perfil de usuario logeado,
+	 * se pueda ver la información sobre él y no tener que recurrir a la base de datos constantemente
+	 * 
+	 * Además, este es el caso de uso que he decidido implementaar en la tarea 3B
+	 */
+	public void miPerfil() {
+		Optional<Persona> pers = serviciosPersona.buscarPorId(controlador.getIdUsuario());
+		if (pers.isPresent()) {
+	    Persona persona = pers.get();
+		System.out.println("MI PERFIL");
+		System.out.println("---------------------------");
+		System.out.println();
+		System.out.println("Id: " + controlador.getIdUsuario());
+		System.out.println("Tipo de perfil: " + controlador.getPerfil());
+		System.out.println("Nombre: " + persona.getNombre());
+		System.out.println("Usuario: " + controlador.getUsuarioAutenticado());
+		System.out.println("Correo: "+ persona.getEmail());
+		System.out.println("Fecha y hora del inicio de la sesión: " + controlador.getFechaInicioSesion().getDayOfMonth() + "-" + controlador.getFechaInicioSesion().getMonthValue() + "-" + controlador.getFechaInicioSesion().getYear() + "     " + controlador.getFechaInicioSesion().getHour() + ":" + controlador.getFechaInicioSesion().getMinute());
+		System.out.println("Número de mensajes introducidos en el sistema: " + serviciosMensaje.contarMensajesPorPersona(controlador.getIdUsuario()));
+		System.out.println();
+		}
+	}
+	/*
+	 * Método para cambiar la contraseña de un usuario de tipo PERSONAL.
+	 * Se le solicita su contraseña actual para cambiarla. Se solicita su nueva contraseña dos veces y se actualiza en la base de datos
+	 */
+	public void cambiarContraseña() {
+	    in.nextLine();
+	    boolean valido = false;
+	    String contraseña1;
+	    String contraseña2;
+	    String nuevaContraseña;
+	    String usuario = controlador.getUsuarioAutenticado();
+	    do {
+	        System.out.println("Introduce tu contraseña actual: ");
+	        contraseña1 = in.nextLine();
+	        System.out.println("Introduce tu contraseña actual otra vez para confirmarla: ");
+	        contraseña2 = in.nextLine();
+	        if (!contraseña1.equals(contraseña2)) {
+	            System.out.println("Las contraseñas no coinciden. Intenta de nuevo.");
+	        } else if (!serviciosCredenciales.autenticar(usuario, contraseña1)) {
+	            System.out.println("La contraseña actual no es válida.");
+	        } else {
+	            valido = true;
+	        }
+	    } while (!valido);
+	    valido = false;
+	    System.out.println("Introduce tu nueva contraseña: ");
+	    do {
+	        nuevaContraseña = in.nextLine();
+	        if (!serviciosCredenciales.validarContraseña(nuevaContraseña)) {
+	            System.out.println("La nueva contraseña no cumple con los requisitos: al menos 8 caracteres, un número y un signo de puntuación");
+	        } else if (nuevaContraseña.equals(contraseña1)) {
+	            System.out.println("La nueva contraseña no puede ser igual a la contraseña actual");
+	        } else {
+	            valido = true;
+	        }
+	    } while (!valido);
+	    try {
+	        serviciosCredenciales.cambiarContraseña(usuario, nuevaContraseña);
+	        System.out.println("Contraseña cambiada.");
+	    } catch (Exception e) {
+	        System.out.println("Error al camibar la contraseña: " + e.getMessage());
+	    }
+	}
+
 }

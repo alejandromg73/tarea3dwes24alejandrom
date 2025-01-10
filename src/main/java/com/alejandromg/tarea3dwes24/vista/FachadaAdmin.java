@@ -297,10 +297,10 @@ public class FachadaAdmin {
                         fachadaPersonal.verMensajesPersona();
                         break;
                     case 3:
-                        fachadaPersonal.verMensajeFechas();
+                        fachadaPersonal.verMensajesFechas();
                         break;
                     case 4:
-                        fachadaPersonal.verMensajeTipoPlanta();
+                        fachadaPersonal.verMensajesTipoPlanta();
                         break;
                 }
             } catch (InputMismatchException e) {
@@ -367,7 +367,6 @@ public class FachadaAdmin {
 	 * 
 	 */
 	public Ejemplar nuevoEjemplar() {
-	    in.nextLine();
 	    Ejemplar e = null;
 	    Mensaje m = null;
 	    boolean correcto = false;
@@ -634,35 +633,42 @@ public class FachadaAdmin {
 	 * 
 	 */
 	public void verMensajesEjemplar() {
-		ArrayList <Ejemplar> ejemplares = (ArrayList<Ejemplar>) servEjemplar.verTodos(); //Cargo todos los ejemplares en un ArrayList
-		System.out.println("Todos los ejemplares: ");
-		System.out.println();
-		for(Ejemplar e: ejemplares) {
-			System.out.println(e);
-			System.out.println();
-		}
-		System.out.print("Introduce el id de un ejemplar para ver sus mensajes: ");
-		try {
-			long idEjemplar = in.nextLong();
-			if (idEjemplar < 1 || idEjemplar > servEjemplar.contarEjemplares()) {
-				System.out.println("Debes introducir un número entre el 1 y " + servEjemplar.contarEjemplares()); //Llamo al método de contar ejemplares para que establezca el número máximo que el usuario puede introducir
-				return;
-			}
-			ArrayList<Mensaje> mensajes = servMensaje.verMensajesPorEjemplar(idEjemplar); //Cargo todos los mensajes en un ArrayList de mensajes 
-			if (mensajes.isEmpty()) {
-				System.out.println("No se encontraron mensajes para el ejemplar");
-			} else {
-				System.out.println("Mensajes del ejemplar con ID: " + idEjemplar + ":");
-				System.out.println();
-				for (Mensaje m : mensajes) {
-					System.out.println(m);
-					System.out.println();
-				}
-			}
-		} catch (Exception e) {
-			System.out.println("Error al intentar obtener los mensajes del ejemplar: " + e.getMessage());
-		}
+		ArrayList<Ejemplar> ejemplares = (ArrayList<Ejemplar>) servEjemplar.verTodos(); //Cargo todos los ejemplares
+	    System.out.println("Todos los ejemplares: ");
+	    System.out.println();
+	    for (Ejemplar e : ejemplares) {
+	        System.out.println(e);
+	        System.out.println();
+	    }
+	    System.out.print("Introduce el id del ejemplar para ver sus mensajes: ");
+	    try {
+	        String id = in.nextLine().trim();
+	        if (id.isEmpty()) {
+	            System.out.println("No has introducido un id válido");
+	            return;
+	        }
+	        long idEjemplar;
+	        try {
+	            idEjemplar = Long.parseLong(id);
+	        } catch (NumberFormatException e) {
+	            System.out.println("El id introducido no es válido");
+	            return;
+	        }
+	        ArrayList<Mensaje> mensajes = servMensaje.verMensajesPorEjemplar(idEjemplar);
+	        if (mensajes == null || mensajes.isEmpty()) {
+	            System.out.println("No hay mensajes para el ejemplar con id: " + idEjemplar);
+	        } else {
+	            System.out.println("Mensajes del ejemplar con id " + idEjemplar + ":");
+	            System.out.println();
+	            for (Mensaje mensaje : mensajes) {
+	                System.out.println(mensaje);
+	            }
+	        }
+	    } catch (Exception e) {
+	        System.out.println("Error al intentar obtener los mensajes: " + e.getMessage());
+	    }
 	}
+
 	
 	/**
 	 * Método para borrar una persona 

@@ -95,4 +95,8 @@ public class ServiciosMensaje {
         }
         return true;
     }
+    
+    public Long contarMensajesPorPersona(Long idPersona) {
+        return mensajeRepo.contarMensajesPorPersona(idPersona);
+    }
 }

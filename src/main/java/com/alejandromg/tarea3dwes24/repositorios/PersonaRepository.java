@@ -16,5 +16,6 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	Long idUsuarioAutenticado(@Param("usuario") String usuario);
 
 	Persona findByNombre(String nombre);
+	
 
 }

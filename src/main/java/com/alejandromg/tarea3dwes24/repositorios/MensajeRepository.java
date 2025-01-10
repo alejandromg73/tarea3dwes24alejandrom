@@ -24,5 +24,8 @@ public interface MensajeRepository extends JpaRepository <Mensaje, Long>{
 
     @Query("SELECT m FROM Mensaje m WHERE m.ejemplar.id = :idEjemplar")
     List<Mensaje> findMensajesByEjemplarId(@Param("idEjemplar")long idEjemplar);
+    
+    @Query("SELECT COUNT(m) FROM Mensaje m WHERE m.persona.id = :idPersona")
+    Long contarMensajesPorPersona(@Param("idPersona") Long idPersona);
 
 }
